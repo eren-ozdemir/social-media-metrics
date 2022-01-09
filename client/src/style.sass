@@ -1,0 +1,323 @@
+$color-one: #393e46
+$color-two: #406882
+$color-three: #6998AB
+$color-four: #B1D0E0
+$twitter-color: #00acee
+$youTube-color: #990303
+$input-form-height: 10vh
+$navigator-height: 5vh
+$social-media-height: calc(85vh - 70px)
+    
+
+*
+    margin: 0
+
+body, html
+    width: 100vw
+    height: 100vh
+    margin: 0
+    padding: 0
+    font-family: "Arial"
+    overflow-x: hidden
+    font-weight: bold
+
+/* width */
+::-webkit-scrollbar 
+  width: 10px
+
+
+/* Track */
+::-webkit-scrollbar-track 
+  background: white
+  border-radius: 5px
+
+
+/* Handle */
+::-webkit-scrollbar-thumb 
+  background: $color-one
+  border-radius: 20px
+
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover 
+  background: $color-one
+
+
+
+.App
+    height: 100%
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    background-color: 
+    color: white
+    background-color: $color-one
+
+.container
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    box-shadow: 0 0 50px black
+    margin: 20px 0
+    padding: 5px 0
+    width: 60%
+    min-width: 600px
+    max-width: 750px
+    border-radius: 20px
+
+    
+
+.btn 
+    display: inline-flex
+    height: 50px
+    width: 100px
+    border: 2px solid white
+    margin: 20px 20px 20px 20px
+    color: white
+    text-transform: uppercase
+    text-decoration: none
+    font-size: .8em
+    font-weight: bold
+    letter-spacing: 1.5px
+    align-items: center
+    justify-content: center
+    overflow: hidden
+    position: relative
+    cursor: pointer
+
+    &:hover .underline 
+        left: 0
+
+.underline 
+  width: 100%
+  height: 2.5px
+  margin-top: 15px
+  align-self: flex-end
+  left: -200px
+  background: white
+  position: absolute
+  transition: all .3s ease-Out
+  bottom: 0
+
+
+
+
+.date-input-form
+    display: flex
+    flex-direction: column
+    justify-content: center
+    width: auto
+    height: $input-form-height
+    font-weight: bold
+
+.date-input-container
+    display: flex
+    justify-content: center
+    width: 100%
+    input[type="datetime-local"]
+        margin: 0.5em
+
+    .date-input
+        display: flex
+        flex-direction: column
+        justify-content: center
+        align-items: center
+    
+
+.search-box-container
+    display: flex
+    justify-content: center
+    align-items: center
+    width: 100%
+    align-self: center
+    flex-direction: column
+    margin: 1em 0
+
+    input
+        text-align: center
+        width: 150px
+        height: 1.5em
+
+.search-input
+    height: 50%
+
+.btn
+    margin: 3px 5px
+    height: 2em
+
+.options-container
+    display: flex
+    height: 50%
+    align-items: baseline
+
+    select
+        width: 150px
+        height: 2em
+        text-align: center
+
+
+.nav-bar-container
+    z-index: 1
+    width: 60%
+    height: $navigator-height
+    display: flex
+    justify-content: center
+    margin: 0 0 20px 0
+
+
+    .nav-item
+        display: flex
+        height: $navigator-height
+        justify-content: center
+        align-items: center
+        width: $navigator-height
+        // border-radius: 50%
+        margin: 0 20px
+        border: 3px solid #52282800
+
+
+        &:hover
+            filter: hue-rotate(30deg)
+
+    .selected
+        border-bottom: 3px solid white
+
+    .nav-icon
+        color: white
+        size: 100px
+
+
+.social-media-container
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    width: 100%
+    background-color: $color-three
+    height: $social-media-height
+    border-radius: 20px
+
+
+
+.social-media-item
+    position: relative
+    display: flex
+    flex-direction: column
+    width: 100%
+    height: 100%
+    overflow-y: auto
+
+
+.share-container
+    display: flex
+    width: 100%
+
+    a
+        color: white
+        text-decoration-line: none
+
+
+.share
+    display: flex
+    flex-direction: column
+    width: 100%
+    height: auto
+    margin: 5px
+    padding: 5px
+    border-radius: 10px
+
+    &:nth-child(odd)
+        background-color: $color-one
+
+.content
+    padding: 5px 20px
+
+.youtube-content
+    display: flex
+
+    
+    
+    
+.thumbnail
+    width: 50%
+    padding: 5px
+    border-radius: 10px
+
+.title
+    margin: 5px
+
+.meta-data
+    display: flex
+    justify-content: space-between
+    border-top: 2px solid white
+    
+.metrics
+    display: flex
+    margin: 0
+    padding-top: 5px 
+    width: 90%
+    height: 3vh
+    justify-content: space-around
+    align-items: center
+
+    div
+        display: flex
+
+
+.metric
+    margin: 0 5px
+    padding: 0
+    vertical-align: middle
+    font-weight: normal
+
+.share-date
+    display: flex
+    align-items: center
+
+.share-index
+    display: flex
+    align-items: start
+    margin: 5px
+    vertical-align: middle
+
+
+.sums
+    position: sticky
+    top: 0
+    padding: 0.5em
+    height: auto
+    width: auto
+    border-top: 2px solid white
+    border-bottom: 2px solid white
+    
+    div
+        display: flex
+
+    .icon
+        width: 
+
+.no-data
+    margin: auto
+    font-weight: bold
+
+
+.dates
+    display: flex
+    justify-content: space-around
+    padding: 0.5em
+    text-align: center
+
+
+
+
+
+
+
+
+
+
+
+
+    
