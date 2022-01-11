@@ -12,6 +12,10 @@ function App() {
   const [startDate, setStartDate] = useState(new Date(2021, 6, 1));
   const [endDate, setEndDate] = useState(new Date(Date.now()));
   const [socialMedia, setSocialMedia] = useState("twitter");
+  const [twitterData, setTwitterData] = useState([]);
+  const [youTubeData, setYouTubeData] = useState([]);
+  const [popularTwitter, setPopularTwitter] = useState();
+  const [popularYouTube, setPopularYouTube] = useState();
   const [twitterOptionList, setTwitterOptionList] = useLocalStorage(
     "twitter-option-list"
   );
@@ -23,6 +27,7 @@ function App() {
     twitter: { backgroundColor: "#00acee" },
     youTube: { backgroundColor: "#990303" },
   };
+
   const navigatorVariants = {
     selected: { scale: 1.5 },
     notSelected: { scale: 1 },
@@ -74,22 +79,30 @@ function App() {
         >
           {socialMedia === "twitter" && (
             <Twitter
+              data={twitterData}
+              setData={setTwitterData}
               startDate={startDate}
               setStartDate={setStartDate}
               endDate={endDate}
               setEndDate={setEndDate}
               optionList={twitterOptionList}
               setOptionList={setTwitterOptionList}
+              popular={popularTwitter}
+              setPopular={setPopularTwitter}
             />
           )}
           {socialMedia === "youTube" && (
             <YouTube
+              data={youTubeData}
+              setData={setYouTubeData}
               startDate={startDate}
               setStartDate={setStartDate}
               endDate={endDate}
               setEndDate={setEndDate}
               optionList={youTubeOptionList}
               setOptionList={setYouTubeOptionList}
+              popular={popularYouTube}
+              setPopular={setPopularYouTube}
             />
           )}
         </motion.div>

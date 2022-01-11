@@ -120,37 +120,28 @@ body, html {
   bottom: 0;
 }
 
-.date-input-form {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  width: auto;
-  height: 10vh;
-  font-weight: bold;
+.react-datetimerange-picker {
+  z-index: 9;
+  color: white;
 }
 
-.date-input-container {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  width: 100%;
+.react-datetimerange-picker .react-datetimerange-picker__wrapper {
+  border: 1px solid white;
 }
 
-.date-input-container input[type="datetime-local"] {
-  margin: 0.5em;
+.react-datetimerange-picker__inputGroup__input {
+  color: white;
 }
 
-.date-input-container .date-input {
+.react-datetimerange-picker__button svg {
+  stroke: white;
+}
+
+.react-calendar__month-view__weekdays__weekday {
+  color: black;
+}
+
+.date-input {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -164,6 +155,7 @@ body, html {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  height: 10vh;
 }
 
 .search-box-container {
@@ -322,10 +314,6 @@ body, html {
   border-radius: 10px;
 }
 
-.share:nth-child(odd) {
-  background-color: #393e46;
-}
-
 .content {
   padding: 5px 20px;
 }
@@ -391,6 +379,7 @@ body, html {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  white-space: nowrap;
 }
 
 .share-index {

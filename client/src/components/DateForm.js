@@ -1,13 +1,17 @@
-import React from "react";
-import { useRef } from "react";
+import { useState, useEffect, useRef } from "react";
+import DateTimeRangePicker from "@wojtekmaj/react-datetimerange-picker";
 
 const DateForm = ({ setStartDate, setEndDate }) => {
   const startDateRef = useRef();
   const endDateRef = useRef();
+  const [value, setDateRange] = useState([new Date(), new Date()]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
+  useEffect(() => {
+    if (value) {
+      setStartDate(value[0]);
+      setEndDate(value[1]);
+    }
+  }, [value]);
 
   const resetDates = (e) => {
     e.preventDefault();
@@ -16,26 +20,10 @@ const DateForm = ({ setStartDate, setEndDate }) => {
   };
 
   return (
-    <form className="date-input-form">
-      <div className="date-input-container">
-        <div className="date-input">
-          <p>Başlangıç Tarihi</p>
-          <input
-            type="datetime-local"
-            ref={startDateRef}
-            onChange={() => setStartDate(new Date(startDateRef.current.value))}
-          />
-        </div>
-        <div className="date-input">
-          <p>Bitiş Tarihi</p>
-          <input
-            type="datetime-local"
-            ref={endDateRef}
-            onChange={() => setEndDate(new Date(endDateRef.current.value))}
-          />
-        </div>
-      </div>
-    </form>
+    <div className="date-input">
+      <p>Tarih Aralığı</p>
+      <DateTimeRangePicker onChange={setDateRange} value={value} />
+    </div>
   );
 };
 

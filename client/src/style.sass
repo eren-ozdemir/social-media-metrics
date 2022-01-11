@@ -101,29 +101,28 @@ body, html
   transition: all .3s ease-Out
   bottom: 0
 
+.react-datetimerange-picker
+    z-index: 9
+    color: white
 
+    .react-datetimerange-picker__wrapper
+        border: 1px solid white
 
+.react-datetimerange-picker__inputGroup__input
+    color: white
 
-.date-input-form
+.react-datetimerange-picker__button svg
+    stroke: white
+
+.react-calendar__month-view__weekdays__weekday
+    color: black
+
+.date-input
     display: flex
     flex-direction: column
     justify-content: center
-    width: auto
+    align-items: center
     height: $input-form-height
-    font-weight: bold
-
-.date-input-container
-    display: flex
-    justify-content: center
-    width: 100%
-    input[type="datetime-local"]
-        margin: 0.5em
-
-    .date-input
-        display: flex
-        flex-direction: column
-        justify-content: center
-        align-items: center
     
 
 .search-box-container
@@ -227,9 +226,7 @@ body, html
     margin: 5px
     padding: 5px
     border-radius: 10px
-
-    &:nth-child(odd)
-        background-color: $color-one
+    
 
 .content
     padding: 5px 20px
@@ -275,6 +272,7 @@ body, html
 .share-date
     display: flex
     align-items: center
+    white-space: nowrap
 
 .share-index
     display: flex

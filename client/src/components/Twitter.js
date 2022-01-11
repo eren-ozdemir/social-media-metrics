@@ -7,11 +7,15 @@ import { FaRegComment } from "react-icons/fa";
 import { motion } from "framer-motion";
 
 const Twitter = ({
+  data,
+  setData,
   startDate,
   setStartDate,
   endDate,
   optionList,
   setOptionList,
+  popular,
+  setPopular,
 }) => {
   const [isSearching, setIsSearching] = useState(false);
   const [publicMetricSums, setPublicMetricSums] = useState({
@@ -22,16 +26,49 @@ const Twitter = ({
   const twitterUsernameRef = useRef();
   const [twitterData, setTwitterData] = useState();
   const [twitterDataFiltered, setTwitterDataFiltered] = useState();
-  const [data, setData] = useState();
 
   useEffect(() => {
     if (startDate) filterByDate();
   }, [startDate, endDate]);
 
   useEffect(() => {
-    if (!isSearching)
+    if (!isSearching && twitterData) {
       setData(twitterDataFiltered ? twitterDataFiltered : twitterData);
+    }
   }, [data, twitterData, twitterDataFiltered]);
+
+  useEffect(() => {
+    if (data) {
+      const tempPublicMetricSums = new Object();
+      for (const metric in data[0]?.public_metrics) {
+        tempPublicMetricSums[metric] = 0;
+      }
+
+      data.map((tweet) => {
+        for (const metric in tweet.public_metrics) {
+          tempPublicMetricSums[metric] += tweet.public_metrics[metric];
+        }
+      });
+      setPublicMetricSums(tempPublicMetricSums);
+    }
+  }, [data]);
+
+  const findPopular = (_data) => {
+    let popularIndex = 0;
+    let popularSum = 0;
+    _data.map((share, index, arr) => {
+      let sum = 0;
+      for (const metric in share?.public_metrics) {
+        if (metric !== "quote_count") sum += share.public_metrics[metric];
+      }
+      share.public_metrics.sum = sum;
+      if (sum > popularSum) {
+        popularSum = sum;
+        popularIndex = index;
+      }
+    });
+    setPopular(popularIndex);
+  };
 
   const searchTwitter = async () => {
     setIsSearching(true);
@@ -48,6 +85,7 @@ const Twitter = ({
       const start = res.data[res.data.length - 1].created_at;
       setStartDate(new Date(start));
       setIsSearching(false);
+      findPopular(res.data);
     } catch (err) {
       console.log(err);
       setIsSearching(false);
@@ -89,22 +127,6 @@ const Twitter = ({
     }
     return total;
   };
-
-  useEffect(() => {
-    if (data) {
-      const tempPublicMetricSums = new Object();
-      for (const metric in data[0]?.public_metrics) {
-        tempPublicMetricSums[metric] = 0;
-      }
-
-      data.map((tweet) => {
-        for (const metric in tweet.public_metrics) {
-          tempPublicMetricSums[metric] += tweet.public_metrics[metric];
-        }
-      });
-      setPublicMetricSums(tempPublicMetricSums);
-    }
-  }, [data]);
 
   return (
     <div className="social-media-item">
@@ -161,35 +183,68 @@ const Twitter = ({
       {!data?.length ? (
         <div className="no-data">{isSearching ? "Aranıyor" : "Veri Yok"}</div>
       ) : (
-        data?.map((tweet, index) => {
-          return (
-            <div className="share-container" key={tweet.id}>
-              <div className="share-index">
-                <p>{index + 1}</p>
-              </div>
+        <div>
+          {
+            <div className="share-container">
               <div className="share">
-                <p className="content">{tweet.text}</p>
+                <div className="title">En çok etkileşim alan paylaşım</div>
+                <p className="content">{data[popular].text}</p>
                 <div className="meta-data">
                   <div className="metrics">
                     <p className="metric">
-                      <AiOutlineHeart /> {tweet.public_metrics["like_count"]}
+                      <AiOutlineHeart />{" "}
+                      {data[popular].public_metrics["like_count"]}
                     </p>
                     <p className="metric">
-                      <FaRegComment /> {tweet.public_metrics["reply_count"]}
+                      <FaRegComment />{" "}
+                      {data[popular].public_metrics["reply_count"]}
                     </p>
                     <p className="metric">
                       <AiOutlineRetweet />
-                      {tweet.public_metrics["retweet_count"]}
+                      {data[popular].public_metrics["retweet_count"]}
                     </p>
                   </div>
                   <p className="share-date">
-                    {new Date(tweet.created_at).toLocaleDateString()}
+                    {new Date(data[popular].created_at).toLocaleTimeString() +
+                      " - " +
+                      new Date(data[popular].created_at).toLocaleDateString()}
                   </p>
                 </div>
               </div>
             </div>
-          );
-        })
+          }
+          {data?.map((tweet, index) => {
+            return (
+              <div className="share-container" key={tweet.id}>
+                <div className="share-index">
+                  <p>{index + 1}</p>
+                </div>
+                <div className="share">
+                  <p className="content">{tweet.text}</p>
+                  <div className="meta-data">
+                    <div className="metrics">
+                      <p className="metric">
+                        <AiOutlineHeart /> {tweet.public_metrics["like_count"]}
+                      </p>
+                      <p className="metric">
+                        <FaRegComment /> {tweet.public_metrics["reply_count"]}
+                      </p>
+                      <p className="metric">
+                        <AiOutlineRetweet />
+                        {tweet.public_metrics["retweet_count"]}
+                      </p>
+                    </div>
+                    <p className="share-date">
+                      {new Date(tweet.created_at).toLocaleTimeString() +
+                        " - " +
+                        new Date(tweet.created_at).toLocaleDateString()}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
       )}
     </div>
   );

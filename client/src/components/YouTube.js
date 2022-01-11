@@ -8,30 +8,33 @@ import { motion, AnimatePresence } from "framer-motion";
 import { IconContext } from "react-icons";
 
 const YouTube = ({
+  data,
+  setData,
   startDate,
   setStartDate,
   endDate,
   setEndDate,
   optionList,
   setOptionList,
+  popular,
+  setPopular,
 }) => {
   const [isSearching, setIsSearching] = useState(false);
+  const youTubeUsernameRef = useRef();
+  const [youTubeData, setYouTubeData] = useState();
+  const [youTubeDataFiltered, setYouTubeDataFiltered] = useState();
   const [publicMetricSums, setPublicMetricSums] = useState({
     likeCount: 0,
     viewCount: 0,
     commentCount: 0,
   });
-  const youTubeUsernameRef = useRef();
-  const [youTubeData, setYouTubeData] = useState();
-  const [youTubeDataFiltered, setYouTubeDataFiltered] = useState();
-  const [data, setData] = useState();
 
   useEffect(() => {
     if (startDate) filterByDate();
   }, [startDate, endDate]);
 
   useEffect(() => {
-    if (!isSearching)
+    if (!isSearching && youTubeData)
       setData(youTubeDataFiltered?.length ? youTubeDataFiltered : youTubeData);
   }, [data, youTubeData, youTubeDataFiltered]);
 
@@ -52,6 +55,23 @@ const YouTube = ({
     }
   }, [data]);
 
+  const findPopular = (_data) => {
+    let popularIndex = 0;
+    let popularSum = 0;
+    _data.map((share, index, arr) => {
+      let sum = 0;
+      for (const metric in share?.statistics) {
+        if (metric !== "") sum += Number(share.statistics[metric]);
+      }
+      share.statistics.sum = sum;
+      if (sum > popularSum) {
+        popularSum = sum;
+        popularIndex = index;
+      }
+    });
+    setPopular(popularIndex);
+  };
+
   const searchYouTube = async () => {
     setIsSearching(true);
     setData([]);
@@ -67,6 +87,7 @@ const YouTube = ({
       const start = res.data[res.data?.length - 1].snippet.publishedAt;
       setStartDate(new Date(start));
       setIsSearching(false);
+      findPopular(res.data);
     } catch (err) {
       console.log(err);
       setIsSearching(false);
@@ -170,26 +191,26 @@ const YouTube = ({
         {!data?.length ? (
           <div className="no-data">{isSearching ? "Aranıyor" : "Veri Yok"}</div>
         ) : (
-          data?.map((share, index) => {
-            return (
-              <div className="share-container" key={share.id}>
-                <div className="share-index">
-                  <p>{index + 1}</p>
-                </div>
+          <>
+            {
+              <div className="share-container">
                 <div className="share">
+                  <div className="title">En çok etkileşim alan paylaşım</div>
                   <a
-                    href={`http://www.youtube.com/watch?v=${share.id}`}
+                    href={`http://www.youtube.com/watch?v=${data[popular].id}`}
                     target="_blank"
                   >
                     <div className="youtube-content">
                       <img
                         className="thumbnail"
-                        src={share.snippet.thumbnails.medium.url}
+                        src={data[popular].snippet.thumbnails.medium.url}
                       />
                       <div>
-                        <p className="title">{share.snippet.title}</p>
+                        <p className="title">{data[popular].snippet.title}</p>
                         <br />
-                        <p className="title">{share.snippet.channelTitle}</p>
+                        <p className="title">
+                          {data[popular].snippet.channelTitle}
+                        </p>
                       </div>
                     </div>
                   </a>
@@ -198,30 +219,86 @@ const YouTube = ({
                       <div>
                         <AiOutlineHeart />
                         <p className="metric">
-                          {share.statistics["likeCount"]}
+                          {data[popular].statistics["likeCount"]}
                         </p>
                       </div>
                       <div>
                         <FaRegComment />
                         <p className="metric">
-                          {share.statistics["commentCount"]}
+                          {data[popular].statistics["commentCount"]}
                         </p>
                       </div>
                       <div>
                         <AiOutlineEye />
                         <p className="metric">
-                          {share.statistics["viewCount"]}
+                          {data[popular].statistics["viewCount"]}
                         </p>
                       </div>
                     </div>
                     <p className="share-date">
-                      {new Date(share.snippet.publishedAt).toLocaleDateString()}
+                      {new Date(
+                        data[popular].snippet.publishedAt
+                      ).toLocaleDateString()}
                     </p>
                   </div>
                 </div>
               </div>
-            );
-          })
+            }
+            {data?.map((share, index) => {
+              return (
+                <div className="share-container" key={share.id}>
+                  <div className="share-index">
+                    <p>{index + 1}</p>
+                  </div>
+                  <div className="share">
+                    <a
+                      href={`http://www.youtube.com/watch?v=${share.id}`}
+                      target="_blank"
+                    >
+                      <div className="youtube-content">
+                        <img
+                          className="thumbnail"
+                          src={share.snippet.thumbnails.medium.url}
+                        />
+                        <div>
+                          <p className="title">{share.snippet.title}</p>
+                          <br />
+                          <p className="title">{share.snippet.channelTitle}</p>
+                        </div>
+                      </div>
+                    </a>
+                    <div className="meta-data">
+                      <div className="metrics">
+                        <div>
+                          <AiOutlineHeart />
+                          <p className="metric">
+                            {share.statistics["likeCount"]}
+                          </p>
+                        </div>
+                        <div>
+                          <FaRegComment />
+                          <p className="metric">
+                            {share.statistics["commentCount"]}
+                          </p>
+                        </div>
+                        <div>
+                          <AiOutlineEye />
+                          <p className="metric">
+                            {share.statistics["viewCount"]}
+                          </p>
+                        </div>
+                      </div>
+                      <p className="share-date">
+                        {new Date(
+                          share.snippet.publishedAt
+                        ).toLocaleDateString()}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </>
         )}
       </div>
     </IconContext.Provider>
