@@ -28,6 +28,9 @@ const YouTube = ({
     viewCount: 0,
     commentCount: 0,
   });
+  const hoverVariants = {
+    hover: { backgroundColor: "#750000" },
+  };
 
   useEffect(() => {
     if (startDate) filterByDate();
@@ -61,7 +64,7 @@ const YouTube = ({
     _data.map((share, index, arr) => {
       let sum = 0;
       for (const metric in share?.statistics) {
-        if (metric !== "") sum += Number(share.statistics[metric]);
+        if (metric !== "favoriteCount") sum += Number(share.statistics[metric]);
       }
       share.statistics.sum = sum;
       if (sum > popularSum) {
@@ -88,6 +91,7 @@ const YouTube = ({
       setStartDate(new Date(start));
       setIsSearching(false);
       findPopular(res.data);
+      console.log(res.data);
     } catch (err) {
       console.log(err);
       setIsSearching(false);
@@ -165,26 +169,30 @@ const YouTube = ({
             initial={{ backgroundColor: "#00acee" }}
             animate={{ backgroundColor: "#990303" }}
           >
-            <div>
-              Gönderi Sayısı:
-              <p className="metric">{data?.length ? data.length : 0}</p>
-            </div>
-            <div>
-              Toplam Etkileşim:
-              <p className="metric">{getSum(publicMetricSums)}</p>
-            </div>
-            <div>
-              <AiOutlineHeart />
-              <p className="metric">{publicMetricSums["likeCount"]}</p>
-            </div>
-            <div>
-              <FaRegComment />
-              <p className="metric">{publicMetricSums["commentCount"]}</p>
-            </div>
-            <div>
-              <AiOutlineEye />
-              <p className="metric">{publicMetricSums["viewCount"]}</p>
-            </div>
+            <section>
+              <div>
+                Gönderi Sayısı:
+                <p className="metric">{data?.length ? data.length : 0}</p>
+              </div>
+              <div>
+                Toplam Etkileşim:
+                <p className="metric">{getSum(publicMetricSums)}</p>
+              </div>
+            </section>
+            <section>
+              <div>
+                <AiOutlineHeart />
+                <p className="metric">{publicMetricSums["likeCount"]}</p>
+              </div>
+              <div>
+                <FaRegComment />
+                <p className="metric">{publicMetricSums["commentCount"]}</p>
+              </div>
+              <div>
+                <AiOutlineEye />
+                <p className="metric">{publicMetricSums["viewCount"]}</p>
+              </div>
+            </section>
           </motion.div>
         </AnimatePresence>
 
@@ -193,7 +201,13 @@ const YouTube = ({
         ) : (
           <>
             {
-              <div className="share-container">
+              <motion.div
+                className="share-container"
+                whileHover="hover"
+                onHoverEnd="default"
+                variants={hoverVariants}
+                transition={{ duration: 0.2 }}
+              >
                 <div className="share">
                   <div className="title">En çok etkileşim alan paylaşım</div>
                   <a
@@ -242,11 +256,18 @@ const YouTube = ({
                     </p>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             }
             {data?.map((share, index) => {
               return (
-                <div className="share-container" key={share.id}>
+                <motion.div
+                  className="share-container"
+                  key={share.id}
+                  whileHover="hover"
+                  onHoverEnd="default"
+                  variants={hoverVariants}
+                  transition={{ duration: 0.2 }}
+                >
                   <div className="share-index">
                     <p>{index + 1}</p>
                   </div>
@@ -282,7 +303,7 @@ const YouTube = ({
                           </p>
                         </div>
                         <div>
-                          <AiOutlineEye />
+                          <AiOutlineEye className="icon" />
                           <p className="metric">
                             {share.statistics["viewCount"]}
                           </p>
@@ -295,7 +316,7 @@ const YouTube = ({
                       </p>
                     </div>
                   </div>
-                </div>
+                </motion.div>
               );
             })}
           </>

@@ -64,7 +64,7 @@ body, html
     padding: 5px 0
     width: 60%
     min-width: 600px
-    max-width: 750px
+    max-width: 800px
     border-radius: 20px
 
     
@@ -76,7 +76,7 @@ body, html
     border: 2px solid white
     margin: 20px 20px 20px 20px
     color: white
-    text-transform: uppercase
+    // text-transform: uppercase
     text-decoration: none
     font-size: .8em
     font-weight: bold
@@ -207,15 +207,18 @@ body, html
     width: 100%
     height: 100%
     overflow-y: auto
+    
 
 
 .share-container
     display: flex
     width: 100%
+    margin: 1em 0
 
     a
         color: white
         text-decoration-line: none
+
 
 
 .share
@@ -259,15 +262,22 @@ body, html
     justify-content: space-around
     align-items: center
 
+
+
     div
         display: flex
+
+.icon
+    stroke: 2px
+    font-size: 1.2em
 
 
 .metric
     margin: 0 5px
     padding: 0
-    vertical-align: middle
-    font-weight: normal
+    font-style: normal
+    align-self: flex-end
+
 
 .share-date
     display: flex
@@ -282,6 +292,7 @@ body, html
 
 
 .sums
+    display: inline
     position: sticky
     top: 0
     padding: 0.5em
@@ -290,8 +301,10 @@ body, html
     border-top: 2px solid white
     border-bottom: 2px solid white
     
-    div
+    section
         display: flex
+        justify-content: space-around
+        
 
     .icon
         width: 
@@ -306,6 +319,8 @@ body, html
     justify-content: space-around
     padding: 0.5em
     text-align: center
+
+
 
 
 

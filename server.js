@@ -21,8 +21,6 @@ if (process.env.NODE_ENV !== "production") {
   });
 }
 //Twitter
-const twitterConsumerKey = process.env.TW_CONSUMER_KEY;
-const twitterConsumerSecret = process.env.TW_CONSUMER_KEY_SECRET;
 const twitterBearer = process.env.TW_BEARER_TOKEN;
 const twitterClient = new TwitterApi(twitterBearer);
 
@@ -31,6 +29,7 @@ app.get("/twitter/public/", async (req, res) => {
     const user = await twitterClient.v2.userByUsername(req.query?.username);
     const userTimeline = await twitterClient.v2.userTimeline(user?.data?.id, {
       "tweet.fields": "public_metrics,created_at",
+      expansions: "",
       max_results: 100,
       start_time: req.query?.start_time,
       end_time: req.query?.end_time,
@@ -38,7 +37,7 @@ app.get("/twitter/public/", async (req, res) => {
     });
 
     const tweets = await userTimeline.fetchLast(1000);
-    res.send(tweets.data.data);
+    res.send(tweets.data);
   } catch (err) {
     console.log(err);
   }

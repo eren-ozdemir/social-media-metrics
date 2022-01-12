@@ -24,8 +24,12 @@ const Twitter = ({
     comment_count: 0,
   });
   const twitterUsernameRef = useRef();
+  const [username, setUsername] = useState();
   const [twitterData, setTwitterData] = useState();
   const [twitterDataFiltered, setTwitterDataFiltered] = useState();
+  const hoverVariants = {
+    hover: { backgroundColor: "#02678f" },
+  };
 
   useEffect(() => {
     if (startDate) filterByDate();
@@ -81,11 +85,13 @@ const Twitter = ({
           end_time: endDate,
         },
       });
-      setTwitterData(res.data);
-      const start = res.data[res.data.length - 1].created_at;
+      setUsername(twitterUsernameRef.current.value);
+      setTwitterData(res.data.data);
+      const start = res.data.data[res.data.data.length - 1].created_at;
       setStartDate(new Date(start));
       setIsSearching(false);
-      findPopular(res.data);
+      findPopular(res.data.data);
+      console.log(res.data);
     } catch (err) {
       console.log(err);
       setIsSearching(false);
@@ -159,36 +165,50 @@ const Twitter = ({
         initial={{ backgroundColor: "#990303" }}
         animate={{ backgroundColor: "#00acee" }}
       >
-        <div>
-          Gönderi Sayısı:
-          <p className="metric">{data?.length ? data.length : 0}</p>
-        </div>
-        <div>
-          Toplam Etkileşim:
-          <p className="metric">{getSum(publicMetricSums)}</p>
-        </div>
-        <div>
-          <AiOutlineHeart />
-          <p className="metric">{publicMetricSums["like_count"]}</p>
-        </div>
-        <div>
-          <FaRegComment />
-          <p className="metric">{publicMetricSums["comment_count"]}</p>
-        </div>
-        <div>
-          <AiOutlineRetweet />
-          <p className="metric">{publicMetricSums["retweet_count"]}</p>
-        </div>
+        <section>
+          <div>
+            Gönderi Sayısı:
+            <p className="metric">{data?.length ? data.length : 0}</p>
+          </div>
+          <div>
+            Toplam Etkileşim:
+            <p className="metric">{getSum(publicMetricSums)}</p>
+          </div>
+        </section>
+        <section>
+          <div>
+            <AiOutlineHeart />
+            <p className="metric">{publicMetricSums["like_count"]}</p>
+          </div>
+          <div>
+            <FaRegComment />
+            <p className="metric">{publicMetricSums["reply_count"]}</p>
+          </div>
+          <div>
+            <AiOutlineRetweet />
+            <p className="metric">{publicMetricSums["retweet_count"]}</p>
+          </div>
+        </section>
       </motion.div>
       {!data?.length ? (
         <div className="no-data">{isSearching ? "Aranıyor" : "Veri Yok"}</div>
       ) : (
-        <div>
+        <>
           {
-            <div className="share-container">
+            <motion.div
+              className="share-container"
+              whileHover="hover"
+              variants={hoverVariants}
+              transition={{ duration: 0.2 }}
+            >
               <div className="share">
                 <div className="title">En çok etkileşim alan paylaşım</div>
-                <p className="content">{data[popular].text}</p>
+                <a
+                  href={`https://twitter.com/${username}/status/${data[popular].id}`}
+                  target="_blank"
+                >
+                  <p className="content">{data[popular].text}</p>
+                </a>
                 <div className="meta-data">
                   <div className="metrics">
                     <p className="metric">
@@ -211,16 +231,28 @@ const Twitter = ({
                   </p>
                 </div>
               </div>
-            </div>
+            </motion.div>
           }
           {data?.map((tweet, index) => {
             return (
-              <div className="share-container" key={tweet.id}>
+              <motion.div
+                className="share-container"
+                key={tweet.id}
+                whileHover="hover"
+                onHoverEnd="default"
+                variants={hoverVariants}
+                transition={{ duration: 0.2 }}
+              >
                 <div className="share-index">
                   <p>{index + 1}</p>
                 </div>
                 <div className="share">
-                  <p className="content">{tweet.text}</p>
+                  <a
+                    href={`https://twitter.com/${username}/status/${tweet.id}`}
+                    target="_blank"
+                  >
+                    <p className="content">{tweet.text}</p>
+                  </a>
                   <div className="meta-data">
                     <div className="metrics">
                       <p className="metric">
@@ -241,10 +273,10 @@ const Twitter = ({
                     </p>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             );
           })}
-        </div>
+        </>
       )}
     </div>
   );
