@@ -10,8 +10,15 @@ import Nav from "./Nav";
 function SingleSearch({
   socialMedia,
   setSocialMedia,
-  twitterOptionList,
-  youTubeOptionList,
+  startDate,
+  setStartDate,
+  endDate,
+  setEndDate,
+  twitterData,
+  youTubeData,
+  setTwitterData,
+  setYouTubeData,
+  isSearching,
 }) {
   const [popularTwitter, setPopularTwitter] = useState();
   const [popularYouTube, setPopularYouTube] = useState();
@@ -20,11 +27,6 @@ function SingleSearch({
     twitter: { backgroundColor: "#00acee" },
     youTube: { backgroundColor: "#990303" },
   };
-
-  useEffect(() => {
-    if (!twitterOptionList) setTwitterOptionList([""]);
-    if (!youTubeOptionList) setYouTubeOptionList([""]);
-  }, [twitterOptionList, youTubeOptionList]);
 
   return (
     <motion.div
@@ -37,34 +39,24 @@ function SingleSearch({
         animate={socialMedia}
         variants={socialMediaVariants}
       >
-        {/* {socialMedia === "twitter" && (
+        {socialMedia === "twitter" && (
           <Twitter
             data={twitterData}
             setData={setTwitterData}
-            startDate={startDate}
-            setStartDate={setStartDate}
-            endDate={endDate}
-            setEndDate={setEndDate}
-            optionList={twitterOptionList}
-            setOptionList={setTwitterOptionList}
             popular={popularTwitter}
             setPopular={setPopularTwitter}
+            isSearching={isSearching}
           />
         )}
         {socialMedia === "youTube" && (
           <YouTube
             data={youTubeData}
             setData={setYouTubeData}
-            startDate={startDate}
-            setStartDate={setStartDate}
-            endDate={endDate}
-            setEndDate={setEndDate}
-            optionList={youTubeOptionList}
-            setOptionList={setYouTubeOptionList}
             popular={popularYouTube}
             setPopular={setPopularYouTube}
+            isSearching={isSearching}
           />
-        )} */}
+        )}
       </motion.div>
     </motion.div>
   );

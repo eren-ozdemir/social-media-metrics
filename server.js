@@ -36,7 +36,8 @@ app.get("/twitter/public/", async (req, res) => {
       exclude: ["replies", "retweets"],
     });
 
-    const tweets = await userTimeline.fetchLast(1000);
+    let tweets = await userTimeline.fetchLast(1000);
+    tweets.meta.username = req.query.username;
     res.send(tweets.data);
   } catch (err) {
     console.log(err);

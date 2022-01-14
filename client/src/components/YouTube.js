@@ -7,19 +7,7 @@ import { FaComment, FaRegComment, FaThumbsUp } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 import { IconContext } from "react-icons";
 
-const YouTube = ({
-  data,
-  setData,
-  startDate,
-  setStartDate,
-  endDate,
-  setEndDate,
-  optionList,
-  setOptionList,
-  popular,
-  setPopular,
-}) => {
-  const [isSearching, setIsSearching] = useState(false);
+const YouTube = ({ data, setData, popular, setPopular, isSearching }) => {
   const youTubeUsernameRef = useRef();
   const [youTubeData, setYouTubeData] = useState();
   const [youTubeDataFiltered, setYouTubeDataFiltered] = useState();
@@ -31,10 +19,6 @@ const YouTube = ({
   const hoverVariants = {
     hover: { backgroundColor: "#750000" },
   };
-
-  useEffect(() => {
-    if (startDate) filterByDate();
-  }, [startDate, endDate]);
 
   useEffect(() => {
     if (!isSearching && youTubeData)
@@ -49,12 +33,13 @@ const YouTube = ({
         tempPublicMetricSums[metric] = 0;
       }
 
-      data.map((share) => {
+      data?.map((share) => {
         for (const metric in share.statistics) {
           tempPublicMetricSums[metric] += Number(share.statistics[metric]);
         }
       });
       setPublicMetricSums(tempPublicMetricSums);
+      findPopular(data);
     }
   }, [data]);
 
@@ -75,57 +60,6 @@ const YouTube = ({
     setPopular(popularIndex);
   };
 
-  const searchYouTube = async () => {
-    setIsSearching(true);
-    setData([]);
-    try {
-      const res = await axios.get("/youtube/public", {
-        params: {
-          channelName: youTubeUsernameRef.current.value,
-          start_time: startDate,
-          end_time: endDate,
-        },
-      });
-      setYouTubeData(res.data);
-      const start = res.data[res.data?.length - 1].snippet.publishedAt;
-      setStartDate(new Date(start));
-      setIsSearching(false);
-      findPopular(res.data);
-      console.log(res.data);
-    } catch (err) {
-      console.log(err);
-      setIsSearching(false);
-    }
-  };
-
-  const filterByDate = () => {
-    const tempYouTubeDataFiltered = youTubeData?.filter((share) => {
-      const shareDate = new Date(share.snippet.publishedAt);
-      return shareDate >= startDate && shareDate <= endDate;
-    });
-    tempYouTubeDataFiltered &&
-      setYouTubeDataFiltered([...tempYouTubeDataFiltered]);
-  };
-
-  const setInput = (_selected) => {
-    youTubeUsernameRef.current.value = _selected;
-  };
-
-  const addOption = () => {
-    if (!optionList?.includes(youTubeUsernameRef.current?.value)) {
-      setOptionList([...optionList, youTubeUsernameRef.current?.value]);
-    }
-  };
-
-  const removeOption = () => {
-    if (optionList.includes(youTubeUsernameRef.current?.value)) {
-      const arr = optionList.filter(
-        (option) => option !== youTubeUsernameRef.current?.value
-      );
-      setOptionList([...arr]);
-    }
-  };
-
   const getSum = (arr) => {
     let total = 0;
     for (let item in arr) {
@@ -139,30 +73,6 @@ const YouTube = ({
       value={{ color: "white", className: "icon", fontWeight: "bold" }}
     >
       <div className="social-media-item">
-        <div className="search-box-container">
-          <div className="search-input">
-            <input
-              type="input"
-              ref={youTubeUsernameRef}
-              placeholder="Kanal Adı"
-            />
-            <div className="btn" onClick={searchYouTube}>
-              <div className="underline"></div>
-              Ara
-            </div>
-          </div>
-          <div className="options-container">
-            <Options setInput={setInput} optionList={optionList} />
-            <div className="btn" onClick={addOption}>
-              <div className="underline"></div>
-              Ekle
-            </div>
-            <div className="btn" onClick={removeOption}>
-              <div className="underline"></div>
-              Sil
-            </div>
-          </div>
-        </div>
         <AnimatePresence>
           <motion.div
             className="metrics sums"

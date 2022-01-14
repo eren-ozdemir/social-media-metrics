@@ -3,14 +3,19 @@ import DateForm from "./DateForm";
 import Options from "./Options";
 import Nav from "./Nav";
 import useLocalStorage from "../hooks/useLocalStorage";
+import axios from "axios";
 
 const SearchInput = ({
+  socialMedia,
+  setSocialMedia,
   setTwitterData,
-  setStartDate,
-  setEndDate,
+  setYouTubeData,
   handleResponse,
+  isSearching,
+  setIsSearching,
 }) => {
-  const [socialMedia, setSocialMedia] = useState("twitter");
+  const [startDate, setStartDate] = useState(new Date(2021, 6, 1));
+  const [endDate, setEndDate] = useState(new Date(Date.now()));
   const usernameRef = useRef();
   const [username, setUsername] = useState();
   const [optionList, setOptionList] = useState([]);
@@ -22,33 +27,8 @@ const SearchInput = ({
   );
 
   useEffect(() => {
-    setOptionList([...twitterOptionList]);
+    twitterOptionList && setOptionList([...twitterOptionList]);
   }, []);
-
-  useEffect(() => {}, [socialMedia]);
-
-  const searchTwitter = async () => {
-    setIsSearching(true);
-    setData([]);
-    try {
-      const res = await axios.get("/twitter/public", {
-        params: {
-          username: username.current.value,
-          start_time: startDate,
-          end_time: endDate,
-        },
-      });
-      setUsername(username.current.value);
-      setTwitterData(res.data.data);
-      const start = res.data.data[res.data.data.length - 1].created_at;
-      setStartDate(new Date(start));
-      setIsSearching(false);
-      findPopular(res.data.data);
-    } catch (err) {
-      console.log(err);
-      setIsSearching(false);
-    }
-  };
 
   const setInput = (_selected) => {
     usernameRef.current.value = _selected;
@@ -71,12 +51,57 @@ const SearchInput = ({
 
   const handleSocialMediaSelection = (_new) => {
     setSocialMedia((prev) => {
-      if (prev === "twitter") setTwitterOptionList([...optionList]);
-      if (prev === "youTube") setYouTubeOptionList([...optionList]);
-      if (_new === "twitter") setOptionList([...twitterOptionList]);
-      if (_new === "youTube") setOptionList([...youTubeOptionList]);
+      if (prev === "twitter" && optionList)
+        setTwitterOptionList([...optionList]);
+      if (prev === "youTube" && optionList)
+        setYouTubeOptionList([...optionList]);
+      if (_new === "twitter" && twitterOptionList)
+        setOptionList([...twitterOptionList]);
+      if (_new === "youTube" && youTubeOptionList)
+        setOptionList([...youTubeOptionList]);
       return _new;
     });
+  };
+
+  const searchTwitter = async () => {
+    setIsSearching(true);
+    try {
+      const res = await axios.get("/twitter/public", {
+        params: {
+          username: usernameRef.current.value,
+          start_time: startDate,
+          end_time: endDate,
+        },
+      });
+      setTwitterData(res.data.data);
+      setIsSearching(false);
+    } catch (err) {
+      console.log(err);
+      setIsSearching(false);
+    }
+  };
+
+  const searchYouTube = async () => {
+    setIsSearching(true);
+    try {
+      const res = await axios.get("/youtube/public", {
+        params: {
+          channelName: usernameRef.current.value,
+          start_time: startDate,
+          end_time: endDate,
+        },
+      });
+      setYouTubeData(res.data);
+      setIsSearching(false);
+    } catch (err) {
+      console.log(err);
+      setIsSearching(false);
+    }
+  };
+
+  const handleSearch = () => {
+    if (socialMedia === "twitter") searchTwitter();
+    if (socialMedia === "youTube") searchYouTube();
   };
 
   return (
@@ -88,7 +113,7 @@ const SearchInput = ({
       />
       <div className="search-input">
         <input type="input" ref={usernameRef} placeholder="Kullanıcı Adı" />
-        <div className="btn" onClick={searchTwitter}>
+        <div className="btn" onClick={handleSearch}>
           <div className="underline"></div>
           Ara
         </div>

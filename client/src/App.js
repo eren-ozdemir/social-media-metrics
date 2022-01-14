@@ -8,10 +8,12 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 function App() {
+  const [socialMedia, setSocialMedia] = useState("twitter");
   const [startDate, setStartDate] = useState(new Date(2021, 6, 1));
   const [endDate, setEndDate] = useState(new Date(Date.now()));
   const [twitterData, setTwitterData] = useState([]);
   const [youTubeData, setYouTubeData] = useState([]);
+  const [isSearching, setIsSearching] = useState(false);
 
   const handleResponse = (res) => {
     console.log("response");
@@ -20,13 +22,19 @@ function App() {
   return (
     <div className="App">
       <SearchInput
-        startDate={startDate}
-        setStartDate={setStartDate}
-        endDate={endDate}
-        setEndDate={setEndDate}
+        socialMedia={socialMedia}
+        setSocialMedia={setSocialMedia}
         handleResponse={handleResponse}
+        setTwitterData={setTwitterData}
+        setYouTubeData={setYouTubeData}
+        setIsSearching={setIsSearching}
       />
-      {/* <SingleSearch /> */}
+      <SingleSearch
+        socialMedia={socialMedia}
+        twitterData={twitterData}
+        youTubeData={youTubeData}
+        isSearching={isSearching}
+      />
     </div>
   );
 }

@@ -6,18 +6,7 @@ import { AiOutlineRetweet, AiOutlineHeart } from "react-icons/ai";
 import { FaRegComment } from "react-icons/fa";
 import { motion } from "framer-motion";
 
-const Twitter = ({
-  data,
-  setData,
-  startDate,
-  setStartDate,
-  endDate,
-  optionList,
-  setOptionList,
-  popular,
-  setPopular,
-}) => {
-  const [isSearching, setIsSearching] = useState(false);
+const Twitter = ({ data, setData, isSearching, popular, setPopular }) => {
   const [publicMetricSums, setPublicMetricSums] = useState({
     like_count: 0,
     retweet_count: 0,
@@ -28,10 +17,6 @@ const Twitter = ({
   const hoverVariants = {
     hover: { backgroundColor: "#02678f" },
   };
-
-  useEffect(() => {
-    if (startDate) filterByDate();
-  }, [startDate, endDate]);
 
   useEffect(() => {
     if (!isSearching && twitterData) {
@@ -52,6 +37,7 @@ const Twitter = ({
         }
       });
       setPublicMetricSums(tempPublicMetricSums);
+      findPopular(data);
     }
   }, [data]);
 
@@ -70,15 +56,6 @@ const Twitter = ({
       }
     });
     setPopular(popularIndex);
-  };
-
-  const filterByDate = () => {
-    const tempTwitterDataFiltered = twitterData?.filter((tweet) => {
-      const tweetDate = new Date(tweet.created_at);
-      return tweetDate >= startDate && tweetDate <= endDate;
-    });
-    tempTwitterDataFiltered &&
-      setTwitterDataFiltered([...tempTwitterDataFiltered]);
   };
 
   const getSum = (arr) => {
@@ -134,12 +111,12 @@ const Twitter = ({
             >
               <div className="share">
                 <div className="title">En çok etkileşim alan paylaşım</div>
-                <a
+                {/* <a
                   href={`https://twitter.com/${username}/status/${data[popular].id}`}
                   target="_blank"
-                >
-                  <p className="content">{data[popular].text}</p>
-                </a>
+                > */}
+                <p className="content">{data[popular].text}</p>
+                {/* </a> */}
                 <div className="meta-data">
                   <div className="metrics">
                     <p className="metric">
@@ -177,12 +154,12 @@ const Twitter = ({
                   <p>{index + 1}</p>
                 </div>
                 <div className="share">
-                  <a
+                  {/* <a
                     href={`https://twitter.com/${username}/status/${tweet.id}`}
                     target="_blank"
-                  >
-                    <p className="content">{tweet.text}</p>
-                  </a>
+                  > */}
+                  <p className="content">{tweet.text}</p>
+                  {/* </a> */}
                   <div className="meta-data">
                     <div className="metrics">
                       <p className="metric">
