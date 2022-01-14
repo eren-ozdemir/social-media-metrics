@@ -204,7 +204,6 @@ const YouTube = ({
               <motion.div
                 className="share-container"
                 whileHover="hover"
-                onHoverEnd="default"
                 variants={hoverVariants}
                 transition={{ duration: 0.2 }}
               >
@@ -264,7 +263,6 @@ const YouTube = ({
                   className="share-container"
                   key={share.id}
                   whileHover="hover"
-                  onHoverEnd="default"
                   variants={hoverVariants}
                   transition={{ duration: 0.2 }}
                 >

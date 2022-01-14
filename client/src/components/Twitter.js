@@ -23,8 +23,6 @@ const Twitter = ({
     retweet_count: 0,
     comment_count: 0,
   });
-  const twitterUsernameRef = useRef();
-  const [username, setUsername] = useState();
   const [twitterData, setTwitterData] = useState();
   const [twitterDataFiltered, setTwitterDataFiltered] = useState();
   const hoverVariants = {
@@ -74,30 +72,6 @@ const Twitter = ({
     setPopular(popularIndex);
   };
 
-  const searchTwitter = async () => {
-    setIsSearching(true);
-    setData([]);
-    try {
-      const res = await axios.get("/twitter/public", {
-        params: {
-          username: twitterUsernameRef.current.value,
-          start_time: startDate,
-          end_time: endDate,
-        },
-      });
-      setUsername(twitterUsernameRef.current.value);
-      setTwitterData(res.data.data);
-      const start = res.data.data[res.data.data.length - 1].created_at;
-      setStartDate(new Date(start));
-      setIsSearching(false);
-      findPopular(res.data.data);
-      console.log(res.data);
-    } catch (err) {
-      console.log(err);
-      setIsSearching(false);
-    }
-  };
-
   const filterByDate = () => {
     const tempTwitterDataFiltered = twitterData?.filter((tweet) => {
       const tweetDate = new Date(tweet.created_at);
@@ -105,25 +79,6 @@ const Twitter = ({
     });
     tempTwitterDataFiltered &&
       setTwitterDataFiltered([...tempTwitterDataFiltered]);
-  };
-
-  const setInput = (_selected) => {
-    twitterUsernameRef.current.value = _selected;
-  };
-
-  const addOption = () => {
-    if (!optionList.includes(twitterUsernameRef.current?.value)) {
-      setOptionList([...optionList, twitterUsernameRef.current?.value]);
-    }
-  };
-
-  const removeOption = () => {
-    if (optionList.includes(twitterUsernameRef.current?.value)) {
-      const arr = optionList.filter(
-        (option) => option !== twitterUsernameRef.current?.value
-      );
-      setOptionList([...arr]);
-    }
   };
 
   const getSum = (arr) => {
@@ -136,30 +91,6 @@ const Twitter = ({
 
   return (
     <div className="social-media-item">
-      <div className="search-box-container">
-        <div className="search-input">
-          <input
-            type="input"
-            ref={twitterUsernameRef}
-            placeholder="Kullanıcı Adı"
-          />
-          <div className="btn" onClick={searchTwitter}>
-            <div className="underline"></div>
-            Ara
-          </div>
-        </div>
-        <div className="options-container">
-          <Options setInput={setInput} optionList={optionList} />
-          <div className="btn" onClick={addOption}>
-            <div className="underline"></div>
-            Ekle
-          </div>
-          <div className="btn" onClick={removeOption}>
-            <div className="underline"></div>
-            Sil
-          </div>
-        </div>
-      </div>
       <motion.div
         className="metrics sums"
         initial={{ backgroundColor: "#990303" }}
@@ -239,7 +170,6 @@ const Twitter = ({
                 className="share-container"
                 key={tweet.id}
                 whileHover="hover"
-                onHoverEnd="default"
                 variants={hoverVariants}
                 transition={{ duration: 0.2 }}
               >

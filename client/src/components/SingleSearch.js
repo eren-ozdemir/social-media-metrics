@@ -4,32 +4,21 @@ import DateForm from "./DateForm";
 import Twitter from "./Twitter";
 import YouTube from "./YouTube";
 import useLocalStorage from "../hooks/useLocalStorage";
-import { FaTwitter, FaYoutube } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
+import Nav from "./Nav";
 
-function App() {
-  const [startDate, setStartDate] = useState(new Date(2021, 6, 1));
-  const [endDate, setEndDate] = useState(new Date(Date.now()));
-  const [socialMedia, setSocialMedia] = useState("twitter");
-  const [twitterData, setTwitterData] = useState([]);
-  const [youTubeData, setYouTubeData] = useState([]);
+function SingleSearch({
+  socialMedia,
+  setSocialMedia,
+  twitterOptionList,
+  youTubeOptionList,
+}) {
   const [popularTwitter, setPopularTwitter] = useState();
   const [popularYouTube, setPopularYouTube] = useState();
-  const [twitterOptionList, setTwitterOptionList] = useLocalStorage(
-    "twitter-option-list"
-  );
-  const [youTubeOptionList, setYouTubeOptionList] = useLocalStorage(
-    "youTube-option-list"
-  );
 
   const socialMediaVariants = {
     twitter: { backgroundColor: "#00acee" },
     youTube: { backgroundColor: "#990303" },
-  };
-
-  const navigatorVariants = {
-    selected: { scale: 1.5 },
-    notSelected: { scale: 1 },
   };
 
   useEffect(() => {
@@ -43,39 +32,12 @@ function App() {
       animate={socialMedia}
       variants={socialMediaVariants}
     >
-      <DateForm setStartDate={setStartDate} setEndDate={setEndDate} />
-      <nav className="nav-bar-container">
-        <motion.div
-          animate={socialMedia === "twitter" ? "selected" : "notSelected"}
-          variants={navigatorVariants}
-          className={
-            socialMedia === "twitter"
-              ? "nav-item twitter-btn selected"
-              : "nav-item twitter-btn "
-          }
-          onClick={() => setSocialMedia("twitter")}
-        >
-          <FaTwitter className="nav-icon" />
-        </motion.div>
-        <motion.div
-          animate={socialMedia === "youTube" ? "selected" : "notSelected"}
-          variants={navigatorVariants}
-          className={
-            socialMedia === "youTube"
-              ? "nav-item youTube-btn selected"
-              : "nav-item youTube-btn "
-          }
-          onClick={() => setSocialMedia("youTube")}
-        >
-          <FaYoutube className="nav-icon" />
-        </motion.div>
-      </nav>
       <motion.div
         className="social-media-container"
         animate={socialMedia}
         variants={socialMediaVariants}
       >
-        {socialMedia === "twitter" && (
+        {/* {socialMedia === "twitter" && (
           <Twitter
             data={twitterData}
             setData={setTwitterData}
@@ -102,10 +64,10 @@ function App() {
             popular={popularYouTube}
             setPopular={setPopularYouTube}
           />
-        )}
+        )} */}
       </motion.div>
     </motion.div>
   );
 }
 
-export default App;
+export default SingleSearch;
