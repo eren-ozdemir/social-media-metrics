@@ -1,6 +1,13 @@
+import { AnimatePresence, motion } from "framer-motion";
 import { useState, useEffect } from "react";
 
-const MultipleSearch = ({ socialMedia, twitterDatas, youTubeDatas }) => {
+const MultipleSearch = ({
+  socialMedia,
+  twitterDatas,
+  youTubeDatas,
+  setDetailIndex,
+  setIsDetailsVisible,
+}) => {
   const [twitterBrands, setTwitterBrands] = useState([]);
   const [youTubeBrands, setYouTubeBrands] = useState([]);
 
@@ -8,6 +15,7 @@ const MultipleSearch = ({ socialMedia, twitterDatas, youTubeDatas }) => {
 
   useEffect(() => {
     if (twitterDatas.length) {
+      console.log(twitterDatas);
       twitterDatas.map((_brand) => {
         tempBrands.push(twitterGetSums(_brand));
       });
@@ -20,6 +28,7 @@ const MultipleSearch = ({ socialMedia, twitterDatas, youTubeDatas }) => {
   }, [twitterDatas]);
 
   useEffect(() => {
+    console.log(youTubeDatas);
     if (youTubeDatas.length) {
       youTubeDatas.map((_brand) => {
         tempBrands.push(youTubeGetSums(_brand));
@@ -52,6 +61,7 @@ const MultipleSearch = ({ socialMedia, twitterDatas, youTubeDatas }) => {
     }
 
     tempSums.total = total;
+    tempSums["share_count"] = _brand.data.length;
 
     const brand = {
       username: _brand.meta.username,
@@ -65,7 +75,7 @@ const MultipleSearch = ({ socialMedia, twitterDatas, youTubeDatas }) => {
     let total = 0;
     //Create array template
     const tempSums = new Object();
-    for (const metric in _brand.videos[0].statistics) {
+    for (const metric in _brand.videos?.[0]?.statistics) {
       tempSums[metric] = 0;
     }
 
@@ -81,6 +91,7 @@ const MultipleSearch = ({ socialMedia, twitterDatas, youTubeDatas }) => {
     }
 
     tempSums.total = total;
+    tempSums.shareCount = _brand.videos.length;
 
     const brand = {
       username: _brand.channelName,
@@ -89,61 +100,87 @@ const MultipleSearch = ({ socialMedia, twitterDatas, youTubeDatas }) => {
 
     return brand;
   };
+
+  const showDetails = (_index) => {
+    setIsDetailsVisible(true);
+    setDetailIndex(_index);
+  };
+
   return (
-    <>
-      {socialMedia === "twitter" && (
-        <table className="table">
-          <thead>
-            <tr>
-              <th>Marka</th>
-              <th>Beğeni</th>
-              <th>Reply</th>
-              <th>Retweet</th>
-              <th>Toplam Etkileşim</th>
-            </tr>
-          </thead>
-          <tbody>
-            {twitterBrands.map((brand, index) => {
-              return (
-                <tr key={index}>
-                  <td>{brand.username}</td>
-                  <td>{brand.sums["like_count"]}</td>
-                  <td>{brand.sums["reply_count"]}</td>
-                  <td>{brand.sums["retweet_count"]}</td>
-                  <td>{brand.sums["total"]}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      )}
-      {socialMedia === "youTube" && (
-        <table className="table">
-          <thead>
-            <tr>
-              <th>Marka</th>
-              <th>Beğeni</th>
-              <th>Yorum</th>
-              <th>İzlenme</th>
-              <th>Toplam Etkileşim</th>
-            </tr>
-          </thead>
-          {youTubeBrands.map((brand, index) => {
-            return (
-              <tbody key={index}>
-                <tr>
-                  <td>{brand.username}</td>
-                  <td>{brand.sums["likeCount"]}</td>
-                  <td>{brand.sums["commentCount"]}</td>
-                  <td>{brand.sums["viewCount"]}</td>
-                  <td>{brand.sums["total"]}</td>
-                </tr>
-              </tbody>
-            );
-          })}
-        </table>
-      )}
-    </>
+    <AnimatePresence>
+      <motion.div
+        className="table-container"
+        initial={{ x: -window.innerWidth }}
+        animate={{ x: 0 }}
+        exit={{ x: window.innerWidth }}
+        transition={{ type: "tween" }}
+      >
+        {socialMedia === "twitter" && (
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Marka</th>
+                <th>Beğeni</th>
+                <th>Reply</th>
+                <th>Retweet</th>
+                <th>Toplam Etkileşim</th>
+                <th>Gönderi Sayısı</th>
+              </tr>
+            </thead>
+            <tbody>
+              {twitterBrands.map((brand, index) => {
+                return (
+                  <tr
+                    className="brand"
+                    key={index}
+                    onClick={() => showDetails(index)}
+                  >
+                    <td>{brand.username}</td>
+                    <td>{brand.sums["like_count"]}</td>
+                    <td>{brand.sums["reply_count"]}</td>
+                    <td>{brand.sums["retweet_count"]}</td>
+                    <td>{brand.sums["total"]}</td>
+                    <td>{brand.sums["share_count"]}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        )}
+        {socialMedia === "youTube" && (
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Marka</th>
+                <th>Beğeni</th>
+                <th>Yorum</th>
+                <th>İzlenme</th>
+                <th>Toplam Etkileşim</th>
+                <th>Gönderi Sayısı</th>
+              </tr>
+            </thead>
+            <tbody>
+              {youTubeBrands.map((brand, index) => {
+                return (
+                  <tr
+                    className="brand"
+                    key={index}
+                    onClick={() => showDetails(index)}
+                  >
+                    <td>{brand.username}</td>
+                    <td>{brand.sums["likeCount"]}</td>
+                    <td>{brand.sums["commentCount"]}</td>
+                    <td>{brand.sums["viewCount"]}</td>
+                    <td>{brand.sums["total"]}</td>
+                    <td>{brand.sums["shareCount"]}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        )}
+      </motion.div>
+    </AnimatePresence>
   );
 };
 

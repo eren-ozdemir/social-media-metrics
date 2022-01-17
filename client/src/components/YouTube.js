@@ -1,15 +1,12 @@
 import React from "react";
 import { useState, useEffect, useRef } from "react";
-import axios from "axios";
-import Options from "./Options";
 import { AiOutlineEye, AiOutlineHeart } from "react-icons/ai";
-import { FaComment, FaRegComment, FaThumbsUp } from "react-icons/fa";
+import { FaArrowLeft, FaRegComment } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 import { IconContext } from "react-icons";
 
-const YouTube = ({ data, setData, popular, setPopular, isSearching }) => {
-  const [youTubeData, setYouTubeData] = useState();
-  const [youTubeDataFiltered, setYouTubeDataFiltered] = useState();
+const YouTube = ({ data, setIsDetailsVisible, channelName }) => {
+  const [popular, setPopular] = useState();
   const [publicMetricSums, setPublicMetricSums] = useState({
     likeCount: 0,
     viewCount: 0,
@@ -18,11 +15,6 @@ const YouTube = ({ data, setData, popular, setPopular, isSearching }) => {
   const hoverVariants = {
     hover: { backgroundColor: "#750000" },
   };
-
-  useEffect(() => {
-    if (!isSearching && youTubeData)
-      setData(youTubeDataFiltered?.length ? youTubeDataFiltered : youTubeData);
-  }, [data, youTubeData, youTubeDataFiltered]);
 
   //Get sum of metrics
   useEffect(() => {
@@ -71,45 +63,52 @@ const YouTube = ({ data, setData, popular, setPopular, isSearching }) => {
     <IconContext.Provider
       value={{ color: "white", className: "icon", fontWeight: "bold" }}
     >
-      <div className="social-media-item">
-        <AnimatePresence>
-          <motion.div
-            className="metrics sums"
-            initial={{ backgroundColor: "#00acee" }}
-            animate={{ backgroundColor: "#990303" }}
-          >
-            <section>
-              <div>
-                Gönderi Sayısı:
-                <p className="metric">{data?.length ? data.length : 0}</p>
-              </div>
-              <div>
-                Toplam Etkileşim:
-                <p className="metric">{getSum(publicMetricSums)}</p>
-              </div>
-            </section>
-            <section>
-              <div>
-                <AiOutlineHeart />
-                <p className="metric">{publicMetricSums["likeCount"]}</p>
-              </div>
-              <div>
-                <FaRegComment />
-                <p className="metric">{publicMetricSums["commentCount"]}</p>
-              </div>
-              <div>
-                <AiOutlineEye />
-                <p className="metric">{publicMetricSums["viewCount"]}</p>
-              </div>
-            </section>
-          </motion.div>
-        </AnimatePresence>
+      <AnimatePresence>
+        <motion.div
+          className="social-media-item"
+          initial={{ x: window.innerWidth }}
+          animate={{ x: 0 }}
+          exit={{ x: -window.innerWidth }}
+          transition={{ type: "tween" }}
+        >
+          <div className="header-container">
+            <div className="header">
+              <FaArrowLeft
+                className="back-arrow"
+                onClick={() => setIsDetailsVisible(false)}
+              />
+              <h2 className="detail-header">{channelName}</h2>
+            </div>
+            <div className="metrics sums">
+              <section>
+                <div>
+                  Gönderi Sayısı:
+                  <p className="metric">{data?.length ? data.length : 0}</p>
+                </div>
+                <div>
+                  Toplam Etkileşim:
+                  <p className="metric">{getSum(publicMetricSums)}</p>
+                </div>
+              </section>
+              <section>
+                <div>
+                  <AiOutlineHeart />
+                  <p className="metric">{publicMetricSums["likeCount"]}</p>
+                </div>
+                <div>
+                  <FaRegComment />
+                  <p className="metric">{publicMetricSums["commentCount"]}</p>
+                </div>
+                <div>
+                  <AiOutlineEye />
+                  <p className="metric">{publicMetricSums["viewCount"]}</p>
+                </div>
+              </section>
+            </div>
+          </div>
 
-        {!data?.length ? (
-          <div className="no-data">{isSearching ? "Aranıyor" : "Veri Yok"}</div>
-        ) : (
           <>
-            {
+            {popular && (
               <motion.div
                 className="share-container"
                 whileHover="hover"
@@ -117,7 +116,7 @@ const YouTube = ({ data, setData, popular, setPopular, isSearching }) => {
                 transition={{ duration: 0.2 }}
               >
                 <div className="share">
-                  <div className="title">En çok etkileşim alan paylaşım</div>
+                  <h3 className="title">En çok etkileşim alan paylaşım</h3>
                   <a
                     href={`http://www.youtube.com/watch?v=${data[popular].id}`}
                     target="_blank"
@@ -165,7 +164,7 @@ const YouTube = ({ data, setData, popular, setPopular, isSearching }) => {
                   </div>
                 </div>
               </motion.div>
-            }
+            )}
             {data?.map((share, index) => {
               return (
                 <motion.div
@@ -227,8 +226,8 @@ const YouTube = ({ data, setData, popular, setPopular, isSearching }) => {
               );
             })}
           </>
-        )}
-      </div>
+        </motion.div>
+      </AnimatePresence>
     </IconContext.Provider>
   );
 };

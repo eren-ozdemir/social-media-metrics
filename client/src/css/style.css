@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu&display=swap");
 * {
   margin: 0;
 }
@@ -7,9 +8,8 @@ body, html {
   height: 100vh;
   margin: 0;
   padding: 0;
-  font-family: "Arial";
+  font-family: 'Ubuntu', sans-serif;
   overflow-x: hidden;
-  font-weight: bold;
 }
 
 /* width */
@@ -25,8 +25,8 @@ body, html {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #393e46;
-  border-radius: 20px;
+  background: #272829;
+  border-radius: 5px;
 }
 
 /* Handle on hover */
@@ -62,6 +62,9 @@ body, html {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -210,13 +213,20 @@ body, html {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  width: 100%;
+  height: auto;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .query-list-container .query-item {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  margin: 0 5px;
+  margin: 0.2em 1em;
 }
 
 .nav-bar-container {
@@ -277,7 +287,7 @@ body, html {
       -ms-flex-align: center;
           align-items: center;
   width: 100%;
-  background-color: #6998AB;
+  background-color: #63636394;
   height: calc(70vh - 70px);
   border-radius: 20px;
 }
@@ -292,8 +302,11 @@ body, html {
       -ms-flex-direction: column;
           flex-direction: column;
   width: 100%;
-  height: 100%;
+  height: 90%;
   overflow-y: auto;
+  -webkit-box-shadow: 0 0 50px black;
+          box-shadow: 0 0 50px black;
+  border-radius: 20px;
 }
 
 .share-container {
@@ -421,8 +434,8 @@ body, html {
   position: sticky;
   top: 0;
   padding: 0.5em;
-  height: auto;
   width: auto;
+  height: auto;
   border-bottom: 2px solid white;
   border-radius: 20px 20px 0 0;
 }
@@ -450,6 +463,10 @@ body, html {
   text-align: center;
 }
 
+.table-container {
+  width: 100%;
+}
+
 .table {
   width: 100%;
   margin-top: 30px;
@@ -459,13 +476,45 @@ body, html {
   border-radius: 20px;
 }
 
-table, th, td {
-  border: 1px solid black;
-}
-
 th, td {
   text-align: center;
   width: 20%;
   height: 1.5em;
+}
+
+tbody tr:nth-child(odd) {
+  background-color: #91919194;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #63636394;
+}
+
+.header-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  background-color: #393e46;
+}
+
+.header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 20px;
+}
+
+.back-arrow, .brand {
+  cursor: pointer;
 }
 /*# sourceMappingURL=style.css.map */

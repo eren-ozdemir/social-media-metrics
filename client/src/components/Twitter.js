@@ -1,28 +1,19 @@
 import React from "react";
 import { useState, useEffect, useRef } from "react";
-import axios from "axios";
-import Options from "./Options";
 import { AiOutlineRetweet, AiOutlineHeart } from "react-icons/ai";
-import { FaRegComment } from "react-icons/fa";
-import { motion } from "framer-motion";
+import { FaArrowLeft, FaRegComment } from "react-icons/fa";
+import { AnimatePresence, motion } from "framer-motion";
 
-const Twitter = ({ data, setData, isSearching, popular, setPopular }) => {
+const Twitter = ({ data, setIsDetailsVisible, username }) => {
+  const [popular, setPopular] = useState();
   const [publicMetricSums, setPublicMetricSums] = useState({
     like_count: 0,
     retweet_count: 0,
     comment_count: 0,
   });
-  const [twitterData, setTwitterData] = useState();
-  const [twitterDataFiltered, setTwitterDataFiltered] = useState();
   const hoverVariants = {
     hover: { backgroundColor: "#02678f" },
   };
-
-  useEffect(() => {
-    if (twitterData) {
-      setData(twitterDataFiltered ? twitterDataFiltered : twitterData);
-    }
-  }, [data, twitterData, twitterDataFiltered]);
 
   useEffect(() => {
     if (data) {
@@ -67,42 +58,53 @@ const Twitter = ({ data, setData, isSearching, popular, setPopular }) => {
   };
 
   return (
-    <div className="social-media-item">
+    <AnimatePresence>
       <motion.div
-        className="metrics sums"
-        initial={{ backgroundColor: "#990303" }}
-        animate={{ backgroundColor: "#00acee" }}
+        className="social-media-item"
+        initial={{ x: window.innerWidth }}
+        animate={{ x: 0 }}
+        exit={{ x: -window.innerWidth }}
+        transition={{ type: "tween" }}
       >
-        <section>
-          <div>
-            Gönderi Sayısı:
-            <p className="metric">{data?.length ? data.length : 0}</p>
+        <div className="header-container">
+          <div className="header">
+            <FaArrowLeft
+              className="back-arrow"
+              onClick={() => setIsDetailsVisible(false)}
+            />
+            <h2 className="detail-header">{username}</h2>
           </div>
-          <div>
-            Toplam Etkileşim:
-            <p className="metric">{getSum(publicMetricSums)}</p>
+
+          <div className="metrics sums">
+            <section>
+              <div>
+                Gönderi Sayısı:
+                <p className="metric">{data?.length ? data.length : 0}</p>
+              </div>
+              <div>
+                Toplam Etkileşim:
+                <p className="metric">{getSum(publicMetricSums)}</p>
+              </div>
+            </section>
+            <section>
+              <div>
+                <AiOutlineHeart />
+                <p className="metric">{publicMetricSums["like_count"]}</p>
+              </div>
+              <div>
+                <FaRegComment />
+                <p className="metric">{publicMetricSums["reply_count"]}</p>
+              </div>
+              <div>
+                <AiOutlineRetweet />
+                <p className="metric">{publicMetricSums["retweet_count"]}</p>
+              </div>
+            </section>
           </div>
-        </section>
-        <section>
-          <div>
-            <AiOutlineHeart />
-            <p className="metric">{publicMetricSums["like_count"]}</p>
-          </div>
-          <div>
-            <FaRegComment />
-            <p className="metric">{publicMetricSums["reply_count"]}</p>
-          </div>
-          <div>
-            <AiOutlineRetweet />
-            <p className="metric">{publicMetricSums["retweet_count"]}</p>
-          </div>
-        </section>
-      </motion.div>
-      {!data?.length ? (
-        <div className="no-data">{isSearching ? "Aranıyor" : "Veri Yok"}</div>
-      ) : (
+        </div>
+
         <>
-          {
+          {popular && (
             <motion.div
               className="share-container"
               whileHover="hover"
@@ -110,13 +112,10 @@ const Twitter = ({ data, setData, isSearching, popular, setPopular }) => {
               transition={{ duration: 0.2 }}
             >
               <div className="share">
-                <div className="title">En çok etkileşim alan paylaşım</div>
-                {/* <a
-                  href={`https://twitter.com/${username}/status/${data[popular].id}`}
-                  target="_blank"
-                > */}
+                <h3 className="title">En çok etkileşim alan paylaşım</h3>
+
                 <p className="content">{data[popular].text}</p>
-                {/* </a> */}
+
                 <div className="meta-data">
                   <div className="metrics">
                     <p className="metric">
@@ -128,7 +127,7 @@ const Twitter = ({ data, setData, isSearching, popular, setPopular }) => {
                       {data[popular].public_metrics["reply_count"]}
                     </p>
                     <p className="metric">
-                      <AiOutlineRetweet />
+                      <AiOutlineRetweet />{" "}
                       {data[popular].public_metrics["retweet_count"]}
                     </p>
                   </div>
@@ -140,7 +139,7 @@ const Twitter = ({ data, setData, isSearching, popular, setPopular }) => {
                 </div>
               </div>
             </motion.div>
-          }
+          )}
           {data?.map((tweet, index) => {
             return (
               <motion.div
@@ -184,8 +183,8 @@ const Twitter = ({ data, setData, isSearching, popular, setPopular }) => {
             );
           })}
         </>
-      )}
-    </div>
+      </motion.div>
+    </AnimatePresence>
   );
 };
 

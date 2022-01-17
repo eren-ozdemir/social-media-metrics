@@ -1,6 +1,10 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+
+    
 $color-one: #393e46
-$color-two: #406882
-$color-three: #6998AB
+$color-two: #91919194
+$color-three: #63636394
 $color-four: #B1D0E0
 $twitter-color: #00acee
 $youTube-color: #990303
@@ -17,9 +21,8 @@ body, html
     height: 100vh
     margin: 0
     padding: 0
-    font-family: "Arial"
+    font-family: 'Ubuntu', sans-serif
     overflow-x: hidden
-    font-weight: bold
 
 /* width */
 ::-webkit-scrollbar 
@@ -34,8 +37,8 @@ body, html
 
 /* Handle */
 ::-webkit-scrollbar-thumb 
-  background: $color-one
-  border-radius: 20px
+  background: #272829
+  border-radius: 5px
 
 
 /* Handle on hover */
@@ -58,6 +61,7 @@ body, html
 .container
     display: flex
     flex-direction: column
+    justify-content: center
     align-items: center
     margin: 20px 0
     width: 60%
@@ -156,10 +160,14 @@ body, html
 
 .query-list-container
     display: flex
+    width: 100%
+    height: auto
+    flex-wrap: wrap
+    justify-content: center
 
     .query-item
         display: flex
-        margin: 0 5px
+        margin: 0.2em 1em
 
 .nav-bar-container
     z-index: 1
@@ -209,9 +217,10 @@ body, html
     display: flex
     flex-direction: column
     width: 100%
-    height: 100%
+    height: 90%
     overflow-y: auto
-    
+    box-shadow: 0 0 50px black
+    border-radius: 20px
 
 
 .share-container
@@ -222,8 +231,6 @@ body, html
     a
         color: white
         text-decoration-line: none
-
-
 
 .share
     display: flex
@@ -240,9 +247,6 @@ body, html
 
 .youtube-content
     display: flex
-
-    
-    
     
 .thumbnail
     width: 50%
@@ -301,8 +305,8 @@ body, html
     position: sticky
     top: 0
     padding: 0.5em
-    height: auto
     width: auto
+    height: auto
     border-bottom: 2px solid white
     border-radius: 20px 20px 0 0
     
@@ -325,6 +329,9 @@ body, html
     padding: 0.5em
     text-align: center
 
+.table-container
+    width: 100%
+
 .table
     width: 100%
     margin-top: 30px
@@ -333,15 +340,36 @@ body, html
     border-radius: 20px
 
 
-table, th, td 
-  border: 1px solid black
+// table, th, td 
+//   border: 1px solid black
 
 th,td
     text-align: center
     width: 20%
-    height: 1.5em
+    height: 1.5em   
+
+tbody
+    tr
+        &:nth-child(odd)
+            background-color: $color-two
+        &:nth-child(even)
+            background-color: $color-three
+         
+.header-container
+    display: flex
+    flex-direction: column
+    position: sticky
+    top: 0
+    background-color: $color-one
+
+.header
+    display: flex
+    justify-content: space-between
+    padding: 20px 
 
 
+.back-arrow, .brand
+    cursor: pointer
 
 
 

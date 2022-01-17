@@ -6,6 +6,7 @@ import useLocalStorage from "../hooks/useLocalStorage";
 import axios from "axios";
 import { FaCross, FaWindowClose } from "react-icons/fa";
 import { AiFillCloseCircle, AiOutlineClose } from "react-icons/ai";
+import { AnimatePresence, motion } from "framer-motion";
 
 const SearchInput = ({
   socialMedia,
@@ -141,25 +142,30 @@ const SearchInput = ({
   };
 
   return (
-    <div className="search-box-container">
-      <DateForm setStartDate={setStartDate} setEndDate={setEndDate} />
-      <Nav
-        socialMedia={socialMedia}
-        handleSocialMediaSelection={handleSocialMediaSelection}
-      />
-      <div className="search-input">
-        <input type="input" ref={usernameRef} placeholder="Kullanıcı Adı" />
-        <div className="btn" onClick={() => handleSearch()}>
-          <div className="underline"></div>
-          Ara
+    <AnimatePresence>
+      <motion.div
+        className="search-box-container"
+        initial={{ x: window.innerWidth }}
+        animate={{ x: 0 }}
+        exit={{ x: -window.innerWidth }}
+        transition={{ type: "tween" }}
+      >
+        <DateForm setStartDate={setStartDate} setEndDate={setEndDate} />
+        <Nav
+          socialMedia={socialMedia}
+          handleSocialMediaSelection={handleSocialMediaSelection}
+        />
+        <div className="search-input">
+          <input type="input" ref={usernameRef} placeholder="Kullanıcı Adı" />
+          <div className="btn" onClick={() => handleSearch()}>
+            <div className="underline"></div>
+            Ara
+          </div>
+          <div className="btn" onClick={addQuery}>
+            <div className="underline"></div>
+            Sıraya Ekle
+          </div>
         </div>
-        <div className="btn" onClick={addQuery}>
-          <div className="underline"></div>
-          Sıraya Ekle
-        </div>
-      </div>
-
-      {isMultiple ? (
         <div className="query-list-container">
           {queryList?.map((_query) => {
             return (
@@ -173,20 +179,8 @@ const SearchInput = ({
             );
           })}
         </div>
-      ) : (
-        <div className="options-container">
-          <Options setInput={setInput} optionList={optionList} />
-          <div className="btn" onClick={addOption}>
-            <div className="underline"></div>
-            Ekle
-          </div>
-          <div className="btn" onClick={removeOption}>
-            <div className="underline"></div>
-            Sil
-          </div>
-        </div>
-      )}
-    </div>
+      </motion.div>
+    </AnimatePresence>
   );
 };
 
