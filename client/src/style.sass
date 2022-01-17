@@ -58,15 +58,13 @@ body, html
 .container
     display: flex
     flex-direction: column
-    justify-content: center
     align-items: center
-    box-shadow: 0 0 50px black
     margin: 20px 0
     width: 60%
     min-width: 600px
     max-width: 800px
     border-radius: 20px
-
+    height: 100vh
     
 
 .btn 
@@ -76,7 +74,6 @@ body, html
     border: 2px solid white
     margin: 20px 20px 20px 20px
     color: white
-    // text-transform: uppercase
     text-decoration: none
     font-size: .8em
     font-weight: bold
@@ -133,6 +130,7 @@ body, html
     align-self: center
     flex-direction: column
     margin: 1em 0
+    align-self: flex-start
 
     input
         text-align: center
@@ -156,6 +154,12 @@ body, html
         height: 2em
         text-align: center
 
+.query-list-container
+    display: flex
+
+    .query-item
+        display: flex
+        margin: 0 5px
 
 .nav-bar-container
     z-index: 1
@@ -269,6 +273,9 @@ body, html
     stroke: 2px
     font-size: 1.2em
 
+.pointer
+    cursor: pointer
+    margin-left: 5px
 
 .metric
     margin: 0 5px
@@ -298,6 +305,7 @@ body, html
     width: auto
     border-bottom: 2px solid white
     border-radius: 20px 20px 0 0
+    
     section
         display: flex
         justify-content: space-around
@@ -317,8 +325,21 @@ body, html
     padding: 0.5em
     text-align: center
 
+.table
+    width: 100%
+    margin-top: 30px
+    padding: 20px
+    box-shadow: 0 0 50px black
+    border-radius: 20px
 
 
+table, th, td 
+  border: 1px solid black
+
+th,td
+    text-align: center
+    width: 20%
+    height: 1.5em
 
 
 

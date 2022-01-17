@@ -24,24 +24,34 @@ if (process.env.NODE_ENV !== "production") {
 const twitterBearer = process.env.TW_BEARER_TOKEN;
 const twitterClient = new TwitterApi(twitterBearer);
 
-app.get("/twitter/public/", async (req, res) => {
+const getTweets = async (_username, _startTime, _endTime) => {
   try {
-    const user = await twitterClient.v2.userByUsername(req.query?.username);
+    const user = await twitterClient.v2.userByUsername(_username);
     const userTimeline = await twitterClient.v2.userTimeline(user?.data?.id, {
       "tweet.fields": "public_metrics,created_at",
-      expansions: "",
       max_results: 100,
-      start_time: req.query?.start_time,
-      end_time: req.query?.end_time,
+      start_time: _startTime,
+      end_time: _endTime,
       exclude: ["replies", "retweets"],
     });
 
     let tweets = await userTimeline.fetchLast(1000);
-    tweets.meta.username = req.query.username;
-    res.send(tweets.data);
+    tweets.meta.username = _username;
+    console.log(tweets.data);
+    return tweets.data;
   } catch (err) {
     console.log(err);
   }
+};
+
+app.get("/twitter/public/", async (req, res) => {
+  console.log(req.query.username);
+  const tweets = await getTweets(
+    req.query?.username,
+    req.query?.start_time,
+    req.query?.end_time
+  );
+  res.send(tweets);
 });
 
 //Youtube
@@ -198,7 +208,11 @@ app.get("/youtube/public/", async (req, res) => {
         req.query.end_time
       );
       console.log("Results Length:", resultVideos.length);
-      res.send(resultVideos);
+      const resObj = {
+        channelName: req.query.channelName,
+        videos: resultVideos,
+      };
+      res.send(resObj);
     } else {
       console.log("Channel not found");
       res.send([]);

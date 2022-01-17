@@ -19,7 +19,7 @@ const Twitter = ({ data, setData, isSearching, popular, setPopular }) => {
   };
 
   useEffect(() => {
-    if (!isSearching && twitterData) {
+    if (twitterData) {
       setData(twitterDataFiltered ? twitterDataFiltered : twitterData);
     }
   }, [data, twitterData, twitterDataFiltered]);

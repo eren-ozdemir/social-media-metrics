@@ -9,11 +9,6 @@ import Nav from "./Nav";
 
 function SingleSearch({
   socialMedia,
-  setSocialMedia,
-  startDate,
-  setStartDate,
-  endDate,
-  setEndDate,
   twitterData,
   youTubeData,
   setTwitterData,

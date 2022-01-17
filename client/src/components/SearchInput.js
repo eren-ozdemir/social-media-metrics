@@ -4,15 +4,22 @@ import Options from "./Options";
 import Nav from "./Nav";
 import useLocalStorage from "../hooks/useLocalStorage";
 import axios from "axios";
+import { FaCross, FaWindowClose } from "react-icons/fa";
+import { AiFillCloseCircle, AiOutlineClose } from "react-icons/ai";
 
 const SearchInput = ({
   socialMedia,
   setSocialMedia,
+  twitterDatas,
+  youTubeDatas,
   setTwitterData,
+  setTwitterDatas,
   setYouTubeData,
+  setYouTubeDatas,
   handleResponse,
   isSearching,
   setIsSearching,
+  isMultiple,
 }) => {
   const [startDate, setStartDate] = useState(new Date(2021, 6, 1));
   const [endDate, setEndDate] = useState(new Date(Date.now()));
@@ -25,6 +32,9 @@ const SearchInput = ({
   const [youTubeOptionList, setYouTubeOptionList] = useLocalStorage(
     "youTube-option-list"
   );
+  const [queryList, setQueryList] = useState(["Yatırım Finansman"]);
+
+  let tempResults = [];
 
   useEffect(() => {
     twitterOptionList && setOptionList([...twitterOptionList]);
@@ -63,45 +73,71 @@ const SearchInput = ({
     });
   };
 
-  const searchTwitter = async () => {
+  const handleSearch = async () => {
+    if (socialMedia === "twitter") {
+      tempResults = [];
+      for (let item of queryList) {
+        tempResults.push(await searchTwitter(item));
+      }
+      setTwitterDatas([...tempResults]);
+    }
+    if (socialMedia === "youTube") {
+      tempResults = [];
+      for (let item of queryList) {
+        tempResults.push(await searchYouTube(item));
+      }
+      setYouTubeDatas([...tempResults]);
+    }
+  };
+
+  const searchTwitter = async (_username) => {
     setIsSearching(true);
     try {
       const res = await axios.get("/twitter/public", {
         params: {
-          username: usernameRef.current.value,
+          username: _username,
           start_time: startDate,
           end_time: endDate,
         },
       });
-      setTwitterData(res.data.data);
       setIsSearching(false);
+      return res.data;
     } catch (err) {
       console.log(err);
       setIsSearching(false);
     }
   };
 
-  const searchYouTube = async () => {
+  const searchYouTube = async (_username) => {
     setIsSearching(true);
     try {
       const res = await axios.get("/youtube/public", {
         params: {
-          channelName: usernameRef.current.value,
+          channelName: _username,
           start_time: startDate,
           end_time: endDate,
         },
       });
-      setYouTubeData(res.data);
+
       setIsSearching(false);
+      return res.data;
     } catch (err) {
       console.log(err);
       setIsSearching(false);
     }
   };
 
-  const handleSearch = () => {
-    if (socialMedia === "twitter") searchTwitter();
-    if (socialMedia === "youTube") searchYouTube();
+  const addQuery = () => {
+    if (
+      usernameRef.current.value &&
+      !queryList?.includes(usernameRef.current.value)
+    )
+      setQueryList([...queryList, usernameRef.current.value]);
+  };
+
+  const removeQuery = (_query) => {
+    if (queryList.includes(_query))
+      setQueryList(queryList.filter((q) => q !== _query));
   };
 
   return (
@@ -113,22 +149,43 @@ const SearchInput = ({
       />
       <div className="search-input">
         <input type="input" ref={usernameRef} placeholder="Kullanıcı Adı" />
-        <div className="btn" onClick={handleSearch}>
+        <div className="btn" onClick={() => handleSearch()}>
           <div className="underline"></div>
           Ara
         </div>
-      </div>
-      <div className="options-container">
-        <Options setInput={setInput} optionList={optionList} />
-        <div className="btn" onClick={addOption}>
+        <div className="btn" onClick={addQuery}>
           <div className="underline"></div>
-          Ekle
-        </div>
-        <div className="btn" onClick={removeOption}>
-          <div className="underline"></div>
-          Sil
+          Sıraya Ekle
         </div>
       </div>
+
+      {isMultiple ? (
+        <div className="query-list-container">
+          {queryList?.map((_query) => {
+            return (
+              <div className="query-item" key={_query}>
+                <p>{_query}</p>
+                <FaWindowClose
+                  className="pointer"
+                  onClick={() => removeQuery(_query)}
+                />
+              </div>
+            );
+          })}
+        </div>
+      ) : (
+        <div className="options-container">
+          <Options setInput={setInput} optionList={optionList} />
+          <div className="btn" onClick={addOption}>
+            <div className="underline"></div>
+            Ekle
+          </div>
+          <div className="btn" onClick={removeOption}>
+            <div className="underline"></div>
+            Sil
+          </div>
+        </div>
+      )}
     </div>
   );
 };

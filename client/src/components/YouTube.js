@@ -8,7 +8,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { IconContext } from "react-icons";
 
 const YouTube = ({ data, setData, popular, setPopular, isSearching }) => {
-  const youTubeUsernameRef = useRef();
   const [youTubeData, setYouTubeData] = useState();
   const [youTubeDataFiltered, setYouTubeDataFiltered] = useState();
   const [publicMetricSums, setPublicMetricSums] = useState({
