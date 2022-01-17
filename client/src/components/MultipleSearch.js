@@ -148,36 +148,38 @@ const MultipleSearch = ({
           </table>
         )}
         {socialMedia === "youTube" && (
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Marka</th>
-                <th>Beğeni</th>
-                <th>Yorum</th>
-                <th>İzlenme</th>
-                <th>Toplam Etkileşim</th>
-                <th>Gönderi Sayısı</th>
-              </tr>
-            </thead>
-            <tbody>
-              {youTubeBrands.map((brand, index) => {
-                return (
-                  <tr
-                    className="brand"
-                    key={index}
-                    onClick={() => showDetails(index)}
-                  >
-                    <td>{brand.username}</td>
-                    <td>{brand.sums["likeCount"]}</td>
-                    <td>{brand.sums["commentCount"]}</td>
-                    <td>{brand.sums["viewCount"]}</td>
-                    <td>{brand.sums["total"]}</td>
-                    <td>{brand.sums["shareCount"]}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+          <div className="table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Marka</th>
+                  <th>Beğeni</th>
+                  <th>Yorum</th>
+                  <th>İzlenme</th>
+                  <th>Toplam Etkileşim</th>
+                  <th>Gönderi Sayısı</th>
+                </tr>
+              </thead>
+              <tbody>
+                {youTubeBrands.map((brand, index) => {
+                  return (
+                    <tr
+                      className="brand"
+                      key={index}
+                      onClick={() => showDetails(index)}
+                    >
+                      <td>{brand.username}</td>
+                      <td>{brand.sums["likeCount"]}</td>
+                      <td>{brand.sums["commentCount"]}</td>
+                      <td>{brand.sums["viewCount"]}</td>
+                      <td>{brand.sums["total"]}</td>
+                      <td>{brand.sums["shareCount"]}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
         )}
       </motion.div>
     </AnimatePresence>

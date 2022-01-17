@@ -65,9 +65,6 @@ body, html {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   margin: 20px 0;
   width: 60%;
   min-width: 600px;
@@ -272,26 +269,6 @@ body, html {
   size: 100px;
 }
 
-.social-media-container {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  width: 100%;
-  background-color: #63636394;
-  height: calc(70vh - 70px);
-  border-radius: 20px;
-}
-
 .social-media-item {
   position: relative;
   display: -webkit-box;
@@ -307,6 +284,9 @@ body, html {
   -webkit-box-shadow: 0 0 50px black;
           box-shadow: 0 0 50px black;
   border-radius: 20px;
+  justify-self: center;
+  -ms-flex-item-align: center;
+      align-self: center;
 }
 
 .share-container {
@@ -474,12 +454,20 @@ body, html {
   -webkit-box-shadow: 0 0 50px black;
           box-shadow: 0 0 50px black;
   border-radius: 20px;
+  height: 50vh;
+  overflow: auto;
 }
 
 th, td {
   text-align: center;
   width: 20%;
   height: 1.5em;
+}
+
+tbody {
+  width: 100%;
+  max-height: 10vh;
+  overflow: auto;
 }
 
 tbody tr:nth-child(odd) {
