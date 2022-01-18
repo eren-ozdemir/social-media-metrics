@@ -107,10 +107,10 @@ const YouTube = ({ data, setIsDetailsVisible, channelName }) => {
             </div>
           </div>
 
-          <>
+          <div className="share-container">
             {popular && (
               <motion.div
-                className="share-container"
+                className="share-wrapper"
                 whileHover="hover"
                 variants={hoverVariants}
                 transition={{ duration: 0.2 }}
@@ -168,7 +168,7 @@ const YouTube = ({ data, setIsDetailsVisible, channelName }) => {
             {data?.map((share, index) => {
               return (
                 <motion.div
-                  className="share-container"
+                  className="share-wrapper"
                   key={share.id}
                   whileHover="hover"
                   variants={hoverVariants}
@@ -225,7 +225,7 @@ const YouTube = ({ data, setIsDetailsVisible, channelName }) => {
                 </motion.div>
               );
             })}
-          </>
+          </div>
         </motion.div>
       </AnimatePresence>
     </IconContext.Provider>

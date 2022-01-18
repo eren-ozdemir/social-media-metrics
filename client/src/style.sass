@@ -3,16 +3,16 @@
 
     
 $color-one: #393e46
-$color-two: #91919194
-$color-three: #63636394
-$color-four: #B1D0E0
+$color-two: rgba(0,152,155,1)
+$color-three: rgba(0,94,120,1)
+$color-four: rgba(0,152,155,1)
 $twitter-color: #00acee
 $youTube-color: #990303
 $input-form-height: 10vh
 $navigator-height: 5vh
 $social-media-height: calc(70vh - 70px)
-    
-
+$gradient-one: radial-gradient( circle farthest-corner at 10% 20%,  rgba(0,152,155,1) 0.1%, rgba(0,94,120,1) 94.2% );
+$gradient-two: radial-gradient( circle farthest-corner at 10% 20%,  rgba(0,94,120,1) 0.1%, rgba(0,152,155,1) 94.2% );
 *
     margin: 0
 
@@ -56,7 +56,8 @@ body, html
     align-items: center
     background-color: 
     color: white
-    background-color: $color-one
+    background-color: #121212
+
 
 .container
     display: flex
@@ -68,6 +69,7 @@ body, html
     max-width: 800px
     border-radius: 20px
     height: 100vh
+    
     
 
 .btn 
@@ -138,6 +140,8 @@ body, html
     box-shadow: 0 0 50px black
     border-radius: 20px
     padding: 20px 0
+    background-image: $gradient-one
+
 
     input
         text-align: center
@@ -188,13 +192,8 @@ body, html
         justify-content: center
         align-items: center
         width: $navigator-height
-        // border-radius: 50%
         margin: 0 20px
         border: 3px solid #52282800
-
-
-        &:hover
-            filter: hue-rotate(30deg)
 
     .selected
         border-bottom: 3px solid white
@@ -203,6 +202,15 @@ body, html
         color: white
         size: 100px
 
+    // .twitter-btn-selected
+    //     color: $twitter-color
+
+    // .youTube-btn-selected
+    //     color: red
+
+    
+
+    
 
 
 .social-media-item
@@ -211,14 +219,15 @@ body, html
     flex-direction: column
     width: 100%
     height: 90%
-    overflow-y: auto
     box-shadow: 0 0 50px black
     border-radius: 20px
     justify-self: center
     align-self: center
 
-
 .share-container
+    overflow-y: auto
+
+.share-wrapper
     display: flex
     width: 100%
     margin: 1em 0
@@ -326,6 +335,7 @@ body, html
 
 .table-container
     width: 100%
+    
 
 
 .table
@@ -339,11 +349,8 @@ body, html
     border-radius: 20px
     height: 50vh
     overflow: auto
+    background-image: $gradient-one
 
-
-
-th
-    border-bottom: 1px solid orange
 
 tbody
     width: 100%
@@ -366,8 +373,8 @@ th,td
     flex-direction: column
     position: sticky
     top: 0
-    background-color: $color-one
-
+    background-color: rgba(0,94,120,1)
+    border-radius: 20px 20px 0 0
 .header
     display: flex
     justify-content: space-between

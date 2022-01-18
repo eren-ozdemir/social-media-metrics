@@ -20,7 +20,13 @@ const Nav = ({ socialMedia, handleSocialMediaSelection }) => {
         }
         onClick={() => handleSocialMediaSelection("twitter")}
       >
-        <FaTwitter className="nav-icon" />
+        <FaTwitter
+          className={
+            socialMedia === "twitter"
+              ? "nav-icon twitter-btn-selected"
+              : "nav-icon twitter-btn "
+          }
+        />
       </motion.div>
       <motion.div
         animate={socialMedia === "youTube" ? "selected" : "notSelected"}
@@ -32,7 +38,13 @@ const Nav = ({ socialMedia, handleSocialMediaSelection }) => {
         }
         onClick={() => handleSocialMediaSelection("youTube")}
       >
-        <FaYoutube className="nav-icon" />
+        <FaYoutube
+          className={
+            socialMedia === "youTube"
+              ? "nav-icon youTube-btn-selected"
+              : "nav-icon youTube-btn "
+          }
+        />
       </motion.div>
     </nav>
   );

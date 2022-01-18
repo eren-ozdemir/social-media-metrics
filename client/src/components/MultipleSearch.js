@@ -145,17 +145,6 @@ const MultipleSearch = ({
                     </tr>
                   );
                 })}
-                <tr>Yatırım Finansman</tr>
-                <tr>Yatırım Finansman</tr>
-                <tr>Yatırım Finansman</tr>
-                <tr>Yatırım Finansman</tr>
-                <tr>Yatırım Finansman</tr>
-                <tr>Yatırım Finansman</tr>
-                <tr>Yatırım Finansman</tr>
-                <tr>Yatırım Finansman</tr>
-                <tr>Yatırım Finansman</tr>
-                <tr>Yatırım Finansman</tr>
-                <tr>Yatırım Finansman</tr>
               </tbody>
             </table>
           </div>
@@ -190,17 +179,6 @@ const MultipleSearch = ({
                     </tr>
                   );
                 })}
-                <tr>Yatırım Finansman</tr>
-                <tr>Yatırım Finansman</tr>
-                <tr>Yatırım Finansman</tr>
-                <tr>Yatırım Finansman</tr>
-                <tr>Yatırım Finansman</tr>
-                <tr>Yatırım Finansman</tr>
-                <tr>Yatırım Finansman</tr>
-                <tr>Yatırım Finansman</tr>
-                <tr>Yatırım Finansman</tr>
-                <tr>Yatırım Finansman</tr>
-                <tr>Yatırım Finansman</tr>
               </tbody>
             </table>
           </div>

@@ -103,10 +103,10 @@ const Twitter = ({ data, setIsDetailsVisible, username }) => {
           </div>
         </div>
 
-        <>
+        <div className="share-container">
           {popular && (
             <motion.div
-              className="share-container"
+              className="share-wrapper"
               whileHover="hover"
               variants={hoverVariants}
               transition={{ duration: 0.2 }}
@@ -143,7 +143,7 @@ const Twitter = ({ data, setIsDetailsVisible, username }) => {
           {data?.map((tweet, index) => {
             return (
               <motion.div
-                className="share-container"
+                className="share-wrapper"
                 key={tweet.id}
                 whileHover="hover"
                 variants={hoverVariants}
@@ -182,7 +182,7 @@ const Twitter = ({ data, setIsDetailsVisible, username }) => {
               </motion.div>
             );
           })}
-        </>
+        </div>
       </motion.div>
     </AnimatePresence>
   );
