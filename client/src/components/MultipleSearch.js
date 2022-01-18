@@ -116,36 +116,49 @@ const MultipleSearch = ({
         transition={{ type: "tween" }}
       >
         {socialMedia === "twitter" && (
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Marka</th>
-                <th>Beğeni</th>
-                <th>Reply</th>
-                <th>Retweet</th>
-                <th>Toplam Etkileşim</th>
-                <th>Gönderi Sayısı</th>
-              </tr>
-            </thead>
-            <tbody>
-              {twitterBrands.map((brand, index) => {
-                return (
-                  <tr
-                    className="brand"
-                    key={index}
-                    onClick={() => showDetails(index)}
-                  >
-                    <td>{brand.username}</td>
-                    <td>{brand.sums["like_count"]}</td>
-                    <td>{brand.sums["reply_count"]}</td>
-                    <td>{brand.sums["retweet_count"]}</td>
-                    <td>{brand.sums["total"]}</td>
-                    <td>{brand.sums["share_count"]}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+          <div className="table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Marka</th>
+                  <th>Beğeni</th>
+                  <th>Reply</th>
+                  <th>Retweet</th>
+                  <th>Toplam Etkileşim</th>
+                  <th>Gönderi Sayısı</th>
+                </tr>
+              </thead>
+              <tbody>
+                {twitterBrands.map((brand, index) => {
+                  return (
+                    <tr
+                      className="brand"
+                      key={index}
+                      onClick={() => showDetails(index)}
+                    >
+                      <td>{brand.username}</td>
+                      <td>{brand.sums["like_count"]}</td>
+                      <td>{brand.sums["reply_count"]}</td>
+                      <td>{brand.sums["retweet_count"]}</td>
+                      <td>{brand.sums["total"]}</td>
+                      <td>{brand.sums["share_count"]}</td>
+                    </tr>
+                  );
+                })}
+                <tr>Yatırım Finansman</tr>
+                <tr>Yatırım Finansman</tr>
+                <tr>Yatırım Finansman</tr>
+                <tr>Yatırım Finansman</tr>
+                <tr>Yatırım Finansman</tr>
+                <tr>Yatırım Finansman</tr>
+                <tr>Yatırım Finansman</tr>
+                <tr>Yatırım Finansman</tr>
+                <tr>Yatırım Finansman</tr>
+                <tr>Yatırım Finansman</tr>
+                <tr>Yatırım Finansman</tr>
+              </tbody>
+            </table>
+          </div>
         )}
         {socialMedia === "youTube" && (
           <div className="table">
@@ -177,6 +190,17 @@ const MultipleSearch = ({
                     </tr>
                   );
                 })}
+                <tr>Yatırım Finansman</tr>
+                <tr>Yatırım Finansman</tr>
+                <tr>Yatırım Finansman</tr>
+                <tr>Yatırım Finansman</tr>
+                <tr>Yatırım Finansman</tr>
+                <tr>Yatırım Finansman</tr>
+                <tr>Yatırım Finansman</tr>
+                <tr>Yatırım Finansman</tr>
+                <tr>Yatırım Finansman</tr>
+                <tr>Yatırım Finansman</tr>
+                <tr>Yatırım Finansman</tr>
               </tbody>
             </table>
           </div>

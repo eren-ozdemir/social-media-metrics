@@ -153,6 +153,10 @@ body, html {
   height: 10vh;
 }
 
+.date-input p {
+  margin-bottom: 10px;
+}
+
 .search-box-container {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -170,9 +174,12 @@ body, html {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  margin: 1em 0;
   -ms-flex-item-align: start;
       align-self: flex-start;
+  -webkit-box-shadow: 0 0 50px black;
+          box-shadow: 0 0 50px black;
+  border-radius: 20px;
+  padding: 20px 0;
 }
 
 .search-box-container input {
@@ -448,9 +455,18 @@ body, html {
 }
 
 .table {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
   width: 100%;
-  margin-top: 30px;
-  padding: 20px;
+  margin-top: 20px;
+  padding: 30px 0;
   -webkit-box-shadow: 0 0 50px black;
           box-shadow: 0 0 50px black;
   border-radius: 20px;
@@ -458,10 +474,8 @@ body, html {
   overflow: auto;
 }
 
-th, td {
-  text-align: center;
-  width: 20%;
-  height: 1.5em;
+th {
+  border-bottom: 1px solid orange;
 }
 
 tbody {
@@ -476,6 +490,12 @@ tbody tr:nth-child(odd) {
 
 tbody tr:nth-child(even) {
   background-color: #63636394;
+}
+
+th, td {
+  text-align: center;
+  width: 10%;
+  height: 1.5em;
 }
 
 .header-container {

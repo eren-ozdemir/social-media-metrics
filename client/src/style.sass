@@ -124,6 +124,8 @@ body, html
     align-items: center
     height: $input-form-height
     
+    p
+        margin-bottom: 10px
 
 .search-box-container
     display: flex
@@ -132,8 +134,10 @@ body, html
     width: 100%
     align-self: center
     flex-direction: column
-    margin: 1em 0
     align-self: flex-start
+    box-shadow: 0 0 50px black
+    border-radius: 20px
+    padding: 20px 0
 
     input
         text-align: center
@@ -163,6 +167,7 @@ body, html
     height: auto
     flex-wrap: wrap
     justify-content: center
+
 
     .query-item
         display: flex
@@ -324,22 +329,21 @@ body, html
 
 
 .table
+    display: flex
+    justify-content: center
+    align-items: flex-start
     width: 100%
-    margin-top: 30px
-    padding: 20px
+    margin-top: 20px
+    padding: 30px 0
     box-shadow: 0 0 50px black
     border-radius: 20px
     height: 50vh
     overflow: auto
 
 
-// table, th, td 
-//   border: 1px solid black
 
-th,td
-    text-align: center
-    width: 20%
-    height: 1.5em   
+th
+    border-bottom: 1px solid orange
 
 tbody
     width: 100%
@@ -350,6 +354,12 @@ tbody
             background-color: $color-two
         &:nth-child(even)
             background-color: $color-three
+
+th,td
+    text-align: center
+    width: 10%
+    height: 1.5em   
+
          
 .header-container
     display: flex
