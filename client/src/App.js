@@ -40,6 +40,7 @@ function App() {
               setYouTubeDatas={setYouTubeDatas}
               setIsSearching={setIsSearching}
             />
+
             <MultipleSearch
               socialMedia={socialMedia}
               twitterDatas={twitterDatas}

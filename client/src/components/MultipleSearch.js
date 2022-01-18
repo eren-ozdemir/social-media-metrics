@@ -45,12 +45,12 @@ const MultipleSearch = ({
     let total = 0;
     //Create array template
     const tempSums = new Object();
-    for (const metric in _brand.data[0].public_metrics) {
+    for (const metric in _brand.data?.[0].public_metrics) {
       tempSums[metric] = 0;
     }
 
     //Calculate
-    _brand.data.map((tweet) => {
+    _brand.data?.map((tweet) => {
       for (const metric in tweet.public_metrics) {
         tempSums[metric] += tweet.public_metrics[metric];
       }
@@ -61,10 +61,10 @@ const MultipleSearch = ({
     }
 
     tempSums.total = total;
-    tempSums["share_count"] = _brand.data.length;
+    tempSums["share_count"] = _brand.data?.length;
 
     const brand = {
-      username: _brand.meta.username,
+      username: _brand.meta?.username,
       sums: tempSums,
     };
 

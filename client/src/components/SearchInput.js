@@ -41,25 +41,6 @@ const SearchInput = ({
     twitterOptionList && setOptionList([...twitterOptionList]);
   }, []);
 
-  const setInput = (_selected) => {
-    usernameRef.current.value = _selected;
-  };
-
-  const addOption = () => {
-    if (!optionList?.includes(usernameRef.current?.value)) {
-      setOptionList([...optionList, usernameRef.current?.value]);
-    }
-  };
-
-  const removeOption = () => {
-    if (optionList.includes(usernameRef.current?.value)) {
-      const arr = optionList.filter(
-        (option) => option !== usernameRef.current?.value
-      );
-      setOptionList([...arr]);
-    }
-  };
-
   const handleSocialMediaSelection = (_new) => {
     setSocialMedia((prev) => {
       if (prev === "twitter" && optionList)
@@ -75,6 +56,15 @@ const SearchInput = ({
   };
 
   const handleSearch = async () => {
+    if (startDate - endDate === 0) {
+      alert("Bir tarih aralığı seçin.");
+      return;
+    }
+
+    if (!queryList.length) {
+      alert("En az bir kullanıcı adı ekleyin.");
+      return;
+    }
     if (socialMedia === "twitter") {
       tempResults = [];
       for (let item of queryList) {
@@ -145,9 +135,8 @@ const SearchInput = ({
     <AnimatePresence>
       <motion.div
         className="search-box-container"
-        initial={{ x: window.innerWidth }}
-        animate={{ x: 0 }}
-        exit={{ x: -window.innerWidth }}
+        initial={{ y: 0 }}
+        animate={{ y: 0 }}
         transition={{ type: "tween" }}
       >
         <DateForm setStartDate={setStartDate} setEndDate={setEndDate} />
