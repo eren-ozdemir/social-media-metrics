@@ -4,10 +4,11 @@ import Nav from "./components/Nav.js";
 import SingleSearch from "./components/SingleSearch.js";
 import SearchInput from "./components/SearchInput";
 import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, AnimateSharedLayout } from "framer-motion";
 import MultipleSearch from "./components/MultipleSearch";
 import Twitter from "./components/Twitter";
 import YouTube from "./components/YouTube";
+import Item from "./components/Item";
 
 function App() {
   const [socialMedia, setSocialMedia] = useState("youTube");
@@ -20,37 +21,46 @@ function App() {
   const [isSearching, setIsSearching] = useState(false);
   const [isDetailsVisible, setIsDetailsVisible] = useState(false);
   const [detailIndex, setDetailIndex] = useState();
+  const item1 = useRef();
+  const item2 = useRef();
+  const item3 = useRef();
+  const [counter, setCounter] = useState(0);
+  const [arr, setArr] = useState([]);
 
-  const handleResponse = (res) => {
-    console.log("response");
+  const handleClick = (item) => {
+    item.current.style = "height: 50px";
   };
 
+  useEffect(() => {
+    counter > 0 && setArr([...arr, <Item />]);
+  }, [counter]);
+
   return (
-    <div className="App">
-      <div className="container">
+    <AnimateSharedLayout>
+      <motion.div className="App">
         {!isDetailsVisible ? (
-          <>
+          <motion.div className="container" key={!isDetailsVisible}>
             <SearchInput
               socialMedia={socialMedia}
               setSocialMedia={setSocialMedia}
-              handleResponse={handleResponse}
               twitterDatas={twitterDatas}
               youTubeDatas={youTubeDatas}
               setTwitterDatas={setTwitterDatas}
               setYouTubeDatas={setYouTubeDatas}
               setIsSearching={setIsSearching}
             />
-
-            <MultipleSearch
-              socialMedia={socialMedia}
-              twitterDatas={twitterDatas}
-              youTubeDatas={youTubeDatas}
-              setIsDetailsVisible={setIsDetailsVisible}
-              setDetailIndex={setDetailIndex}
-            />
-          </>
+            {youTubeDatas.length > 0 && (
+              <MultipleSearch
+                socialMedia={socialMedia}
+                twitterDatas={twitterDatas}
+                youTubeDatas={youTubeDatas}
+                setIsDetailsVisible={setIsDetailsVisible}
+                setDetailIndex={setDetailIndex}
+              />
+            )}
+          </motion.div>
         ) : (
-          <>
+          <motion.div className="container" key={isDetailsVisible}>
             {socialMedia === "twitter" ? (
               <Twitter
                 data={twitterDatas[detailIndex].data}
@@ -64,10 +74,10 @@ function App() {
                 setIsDetailsVisible={setIsDetailsVisible}
               />
             )}
-          </>
+          </motion.div>
         )}
-      </div>
-    </div>
+      </motion.div>
+    </AnimateSharedLayout>
   );
 }
 

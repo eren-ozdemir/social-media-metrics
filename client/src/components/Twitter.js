@@ -58,12 +58,13 @@ const Twitter = ({ data, setIsDetailsVisible, username }) => {
   };
 
   return (
-    <AnimatePresence>
+    <AnimatePresence exitBeforeEnter>
       <motion.div
+        layout
         className="social-media-item"
         initial={{ x: window.innerWidth }}
         animate={{ x: 0 }}
-        exit={{ x: -window.innerWidth }}
+        exit={{ x: 100 }}
         transition={{ type: "tween" }}
       >
         <div className="header-container">

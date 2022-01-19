@@ -124,7 +124,7 @@ body, html
     flex-direction: column
     justify-content: center
     align-items: center
-    height: $input-form-height
+    margin-bottom: 1em
     
     p
         margin-bottom: 10px
@@ -149,7 +149,7 @@ body, html
         height: 1.5em
 
 .search-input
-    height: 50%
+    margin-bottom: 1em
 
 .btn
     margin: 3px 5px
@@ -175,7 +175,14 @@ body, html
 
     .query-item
         display: flex
-        margin: 0.2em 1em
+        margin: 0.2em 
+        height: 1.5em
+        align-items: center
+        border-radius: 10px
+        padding: 5px
+
+        &:hover
+            background-color: #121212
 
 .nav-bar-container
     z-index: 1
@@ -185,15 +192,14 @@ body, html
     justify-content: center
     margin: 0 0 20px 0
 
-
     .nav-item
         display: flex
-        height: $navigator-height
+        height: 2em
+        width: 2em
         justify-content: center
         align-items: center
-        width: $navigator-height
         margin: 0 20px
-        border: 3px solid #52282800
+        border: 3px solid #f7727200
 
     .selected
         border-bottom: 3px solid white
@@ -207,10 +213,6 @@ body, html
 
     // .youTube-btn-selected
     //     color: red
-
-    
-
-    
 
 
 .social-media-item
@@ -384,7 +386,13 @@ th,td
 .back-arrow, .brand
     cursor: pointer
 
+.open 
+    background-color: firebrick
+    margin: 1em
 
+.test
+    display: flex
+    height: 50px
 
 
 

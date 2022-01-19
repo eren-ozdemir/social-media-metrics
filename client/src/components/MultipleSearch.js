@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, AnimateSharedLayout, motion } from "framer-motion";
 import { useState, useEffect } from "react";
 
 const MultipleSearch = ({
@@ -107,13 +107,15 @@ const MultipleSearch = ({
   };
 
   return (
-    <AnimatePresence>
+    <AnimatePresence exitBeforeEnter>
       <motion.div
         className="table-container"
+        layout
+        key={youTubeDatas.length}
         initial={{ x: -window.innerWidth }}
         animate={{ x: 0 }}
         exit={{ x: window.innerWidth }}
-        transition={{ type: "tween" }}
+        transition={{ type: "tween", duration: 1 }}
       >
         {socialMedia === "twitter" && (
           <div className="table">
@@ -184,6 +186,7 @@ const MultipleSearch = ({
           </div>
         )}
       </motion.div>
+      )
     </AnimatePresence>
   );
 };

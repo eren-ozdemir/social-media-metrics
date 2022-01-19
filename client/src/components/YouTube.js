@@ -63,8 +63,9 @@ const YouTube = ({ data, setIsDetailsVisible, channelName }) => {
     <IconContext.Provider
       value={{ color: "white", className: "icon", fontWeight: "bold" }}
     >
-      <AnimatePresence>
+      <AnimatePresence exitBeforeEnter>
         <motion.div
+          layout
           className="social-media-item"
           initial={{ x: window.innerWidth }}
           animate={{ x: 0 }}

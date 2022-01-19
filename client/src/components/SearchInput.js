@@ -65,6 +65,7 @@ const SearchInput = ({
       alert("En az bir kullanıcı adı ekleyin.");
       return;
     }
+
     if (socialMedia === "twitter") {
       tempResults = [];
       for (let item of queryList) {
@@ -122,8 +123,13 @@ const SearchInput = ({
     if (
       usernameRef.current.value &&
       !queryList?.includes(usernameRef.current.value)
-    )
+    ) {
+      if (queryList.length === 12) {
+        alert("Tek seferde en fazla 12 arama yapabilirsiniz.");
+        return;
+      }
       setQueryList([...queryList, usernameRef.current.value]);
+    }
   };
 
   const removeQuery = (_query) => {
@@ -131,19 +137,25 @@ const SearchInput = ({
       setQueryList(queryList.filter((q) => q !== _query));
   };
 
+  const resetDatas = () => {
+    setYouTubeDatas([]);
+    setTwitterDatas([]);
+  };
+
   return (
-    <AnimatePresence>
+    <AnimatePresence exitBeforeEnter>
       <motion.div
         className="search-box-container"
+        layout
         initial={{ y: 0 }}
         animate={{ y: 0 }}
         transition={{ type: "tween" }}
       >
-        <DateForm setStartDate={setStartDate} setEndDate={setEndDate} />
         <Nav
           socialMedia={socialMedia}
           handleSocialMediaSelection={handleSocialMediaSelection}
         />
+        <DateForm setStartDate={setStartDate} setEndDate={setEndDate} />
         <div className="search-input">
           <input type="input" ref={usernameRef} placeholder="Kullanıcı Adı" />
           <div className="btn" onClick={() => handleSearch()}>
@@ -153,6 +165,10 @@ const SearchInput = ({
           <div className="btn" onClick={addQuery}>
             <div className="underline"></div>
             Sıraya Ekle
+          </div>
+          <div className="btn" onClick={resetDatas}>
+            <div className="underline"></div>
+            Temizle
           </div>
         </div>
         <div className="query-list-container">

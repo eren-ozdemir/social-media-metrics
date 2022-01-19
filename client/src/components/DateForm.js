@@ -13,15 +13,8 @@ const DateForm = ({ setStartDate, setEndDate }) => {
     }
   }, [value]);
 
-  const resetDates = (e) => {
-    e.preventDefault();
-    setStartDate(new Date());
-    setEndDate(Date.now());
-  };
-
   return (
     <div className="date-input">
-      <p>Tarih Aralığı</p>
       <DateTimeRangePicker onChange={setDateRange} value={value} />
     </div>
   );

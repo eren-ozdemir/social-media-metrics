@@ -150,7 +150,7 @@ body, html {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  height: 10vh;
+  margin-bottom: 1em;
 }
 
 .date-input p {
@@ -190,7 +190,7 @@ body, html {
 }
 
 .search-input {
-  height: 50%;
+  margin-bottom: 1em;
 }
 
 .btn {
@@ -231,7 +231,17 @@ body, html {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  margin: 0.2em 1em;
+  margin: 0.2em;
+  height: 1.5em;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-radius: 10px;
+  padding: 5px;
+}
+
+.query-list-container .query-item:hover {
+  background-color: #121212;
 }
 
 .nav-bar-container {
@@ -251,16 +261,16 @@ body, html {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  height: 5vh;
+  height: 2em;
+  width: 2em;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  width: 5vh;
   margin: 0 20px;
-  border: 3px solid #52282800;
+  border: 3px solid #f7727200;
 }
 
 .nav-bar-container .selected {
@@ -521,5 +531,17 @@ th, td {
 
 .back-arrow, .brand {
   cursor: pointer;
+}
+
+.open {
+  background-color: firebrick;
+  margin: 1em;
+}
+
+.test {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 50px;
 }
 /*# sourceMappingURL=style.css.map */
