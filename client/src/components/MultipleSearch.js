@@ -111,78 +111,82 @@ const MultipleSearch = ({
       <motion.div
         className="table-container"
         layout
-        key={youTubeDatas.length}
-        initial={{ x: -window.innerWidth }}
-        animate={{ x: 0 }}
-        exit={{ x: window.innerWidth }}
-        transition={{ type: "tween", duration: 1 }}
+        transition={{ type: "tween" }}
       >
         {socialMedia === "twitter" && (
           <div className="table">
-            <table>
-              <thead>
-                <tr>
-                  <th>Marka</th>
-                  <th>Beğeni</th>
-                  <th>Reply</th>
-                  <th>Retweet</th>
-                  <th>Toplam Etkileşim</th>
-                  <th>Gönderi Sayısı</th>
-                </tr>
-              </thead>
-              <tbody>
-                {twitterBrands.map((brand, index) => {
-                  return (
-                    <tr
-                      className="brand"
-                      key={index}
-                      onClick={() => showDetails(index)}
-                    >
-                      <td>{brand.username}</td>
-                      <td>{brand.sums["like_count"]}</td>
-                      <td>{brand.sums["reply_count"]}</td>
-                      <td>{brand.sums["retweet_count"]}</td>
-                      <td>{brand.sums["total"]}</td>
-                      <td>{brand.sums["share_count"]}</td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+            {twitterDatas.length === 0 ? (
+              <p className="no-data">Veri yok</p>
+            ) : (
+              <table>
+                <thead>
+                  <tr>
+                    <th>Marka</th>
+                    <th>Beğeni</th>
+                    <th>Reply</th>
+                    <th>Retweet</th>
+                    <th>Toplam Etkileşim</th>
+                    <th>Gönderi Sayısı</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {twitterBrands.map((brand, index) => {
+                    return (
+                      <tr
+                        className="brand"
+                        key={index}
+                        onClick={() => showDetails(index)}
+                      >
+                        <td>{brand.username}</td>
+                        <td>{brand.sums["like_count"]}</td>
+                        <td>{brand.sums["reply_count"]}</td>
+                        <td>{brand.sums["retweet_count"]}</td>
+                        <td>{brand.sums["total"]}</td>
+                        <td>{brand.sums["share_count"]}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            )}
           </div>
         )}
         {socialMedia === "youTube" && (
           <div className="table">
-            <table>
-              <thead>
-                <tr>
-                  <th>Marka</th>
-                  <th>Beğeni</th>
-                  <th>Yorum</th>
-                  <th>İzlenme</th>
-                  <th>Toplam Etkileşim</th>
-                  <th>Gönderi Sayısı</th>
-                </tr>
-              </thead>
-              <tbody>
-                {youTubeBrands.map((brand, index) => {
-                  return (
-                    <tr
-                      className="brand"
-                      key={index}
-                      onClick={() => showDetails(index)}
-                    >
-                      <td>{brand.username}</td>
-                      <td>{brand.sums["likeCount"]}</td>
-                      <td>{brand.sums["commentCount"]}</td>
-                      <td>{brand.sums["viewCount"]}</td>
-                      <td>{brand.sums["total"]}</td>
-                      <td>{brand.sums["shareCount"]}</td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+            {youTubeDatas.length === 0 ? (
+              <p className="no-data">Veri yok</p>
+            ) : (
+              <table>
+                <thead>
+                  <tr>
+                    <th>Marka</th>
+                    <th>Beğeni</th>
+                    <th>Yorum</th>
+                    <th>İzlenme</th>
+                    <th>Toplam Etkileşim</th>
+                    <th>Gönderi Sayısı</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {youTubeBrands.map((brand, index) => {
+                    return (
+                      <tr
+                        className="brand"
+                        key={index}
+                        onClick={() => showDetails(index)}
+                      >
+                        <td>{brand.username}</td>
+                        <td>{brand.sums["likeCount"]}</td>
+                        <td>{brand.sums["commentCount"]}</td>
+                        <td>{brand.sums["viewCount"]}</td>
+                        <td>{brand.sums["total"]}</td>
+                        <td>{brand.sums["shareCount"]}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            )}
           </div>
         )}
       </motion.div>

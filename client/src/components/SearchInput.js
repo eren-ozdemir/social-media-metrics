@@ -21,6 +21,8 @@ const SearchInput = ({
   isSearching,
   setIsSearching,
   isMultiple,
+  queryList,
+  setQueryList,
 }) => {
   const [startDate, setStartDate] = useState(new Date(2021, 6, 1));
   const [endDate, setEndDate] = useState(new Date(Date.now()));
@@ -33,7 +35,6 @@ const SearchInput = ({
   const [youTubeOptionList, setYouTubeOptionList] = useLocalStorage(
     "youTube-option-list"
   );
-  const [queryList, setQueryList] = useState(["Yatırım Finansman"]);
 
   let tempResults = [];
 
@@ -147,8 +148,6 @@ const SearchInput = ({
       <motion.div
         className="search-box-container"
         layout
-        initial={{ y: 0 }}
-        animate={{ y: 0 }}
         transition={{ type: "tween" }}
       >
         <Nav
@@ -172,17 +171,19 @@ const SearchInput = ({
           </div>
         </div>
         <div className="query-list-container">
-          {queryList?.map((_query) => {
-            return (
-              <div className="query-item" key={_query}>
-                <p>{_query}</p>
-                <FaWindowClose
-                  className="pointer"
-                  onClick={() => removeQuery(_query)}
-                />
-              </div>
-            );
-          })}
+          <div className="query-list-wrapper">
+            {queryList?.map((_query) => {
+              return (
+                <div className="query-item" key={_query}>
+                  <p>{_query}</p>
+                  <FaWindowClose
+                    className="pointer"
+                    onClick={() => removeQuery(_query)}
+                  />
+                </div>
+              );
+            })}
+          </div>
         </div>
       </motion.div>
     </AnimatePresence>

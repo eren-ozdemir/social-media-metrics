@@ -52,6 +52,7 @@ body, html {
           align-items: center;
   color: white;
   background-color: #121212;
+  overflow: hidden;
 }
 
 .container {
@@ -215,22 +216,30 @@ body, html {
 }
 
 .query-list-container {
+  width: 90%;
+}
+
+.query-list-wrapper {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   width: 100%;
-  height: auto;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+  height: 4em;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
 }
 
-.query-list-container .query-item {
+.query-list-wrapper .query-item {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
   margin: 0.2em;
   height: 1.5em;
   -webkit-box-align: center;
@@ -240,7 +249,7 @@ body, html {
   padding: 5px;
 }
 
-.query-list-container .query-item:hover {
+.query-list-wrapper .query-item:hover {
   background-color: #121212;
 }
 
@@ -303,6 +312,9 @@ body, html {
 
 .share-container {
   overflow-y: auto;
+  background-image: radial-gradient(circle farthest-corner at 10% 20%, #00989b 0.1%, #005e78 94.2%);
+  border-radius: 0 0 20px 20px;
+  height: 100%;
 }
 
 .share-wrapper {
@@ -474,14 +486,18 @@ body, html {
       -ms-flex-align: start;
           align-items: flex-start;
   width: 100%;
+  height: 40vh;
   margin-top: 20px;
   padding: 30px 0;
   -webkit-box-shadow: 0 0 50px black;
           box-shadow: 0 0 50px black;
   border-radius: 20px;
-  height: 50vh;
   overflow: auto;
   background-image: radial-gradient(circle farthest-corner at 10% 20%, #00989b 0.1%, #005e78 94.2%);
+}
+
+table {
+  border-collapse: separate;
 }
 
 tbody {
@@ -490,18 +506,14 @@ tbody {
   overflow: auto;
 }
 
-tbody tr:nth-child(odd) {
-  background-color: #00989b;
-}
-
-tbody tr:nth-child(even) {
-  background-color: #005e78;
-}
-
 th, td {
   text-align: center;
   width: 10%;
   height: 1.5em;
+}
+
+td {
+  background-color: #121212;
 }
 
 .header-container {
@@ -515,7 +527,7 @@ th, td {
   position: -webkit-sticky;
   position: sticky;
   top: 0;
-  background-color: #005e78;
+  background-image: radial-gradient(circle farthest-corner at 10% 20%, #00989b 0.1%, #005e78 94.2%);
   border-radius: 20px 20px 0 0;
 }
 

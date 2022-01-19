@@ -63,13 +63,9 @@ const YouTube = ({ data, setIsDetailsVisible, channelName }) => {
     <IconContext.Provider
       value={{ color: "white", className: "icon", fontWeight: "bold" }}
     >
-      <AnimatePresence exitBeforeEnter>
+      <>
         <motion.div
-          layout
           className="social-media-item"
-          initial={{ x: window.innerWidth }}
-          animate={{ x: 0 }}
-          exit={{ x: -window.innerWidth }}
           transition={{ type: "tween" }}
         >
           <div className="header-container">
@@ -228,7 +224,7 @@ const YouTube = ({ data, setIsDetailsVisible, channelName }) => {
             })}
           </div>
         </motion.div>
-      </AnimatePresence>
+      </>
     </IconContext.Provider>
   );
 };

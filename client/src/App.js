@@ -8,7 +8,6 @@ import { motion, AnimatePresence, AnimateSharedLayout } from "framer-motion";
 import MultipleSearch from "./components/MultipleSearch";
 import Twitter from "./components/Twitter";
 import YouTube from "./components/YouTube";
-import Item from "./components/Item";
 
 function App() {
   const [socialMedia, setSocialMedia] = useState("youTube");
@@ -21,61 +20,65 @@ function App() {
   const [isSearching, setIsSearching] = useState(false);
   const [isDetailsVisible, setIsDetailsVisible] = useState(false);
   const [detailIndex, setDetailIndex] = useState();
-  const item1 = useRef();
-  const item2 = useRef();
-  const item3 = useRef();
-  const [counter, setCounter] = useState(0);
-  const [arr, setArr] = useState([]);
-
-  const handleClick = (item) => {
-    item.current.style = "height: 50px";
-  };
-
-  useEffect(() => {
-    counter > 0 && setArr([...arr, <Item />]);
-  }, [counter]);
+  const [queryList, setQueryList] = useState(["Yatırım Finansman"]);
 
   return (
     <AnimateSharedLayout>
       <motion.div className="App">
-        {!isDetailsVisible ? (
-          <motion.div className="container" key={!isDetailsVisible}>
-            <SearchInput
-              socialMedia={socialMedia}
-              setSocialMedia={setSocialMedia}
-              twitterDatas={twitterDatas}
-              youTubeDatas={youTubeDatas}
-              setTwitterDatas={setTwitterDatas}
-              setYouTubeDatas={setYouTubeDatas}
-              setIsSearching={setIsSearching}
-            />
-            {youTubeDatas.length > 0 && (
-              <MultipleSearch
+        <AnimatePresence exitBeforeEnter>
+          {!isDetailsVisible ? (
+            <motion.div
+              className="container"
+              key={isDetailsVisible}
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0 }}
+            >
+              <SearchInput
                 socialMedia={socialMedia}
+                setSocialMedia={setSocialMedia}
                 twitterDatas={twitterDatas}
                 youTubeDatas={youTubeDatas}
-                setIsDetailsVisible={setIsDetailsVisible}
-                setDetailIndex={setDetailIndex}
+                setTwitterDatas={setTwitterDatas}
+                setYouTubeDatas={setYouTubeDatas}
+                setIsSearching={setIsSearching}
+                queryList={queryList}
+                setQueryList={setQueryList}
               />
-            )}
-          </motion.div>
-        ) : (
-          <motion.div className="container" key={isDetailsVisible}>
-            {socialMedia === "twitter" ? (
-              <Twitter
-                data={twitterDatas[detailIndex].data}
-                username={twitterDatas[detailIndex].meta.username}
-                setIsDetailsVisible={setIsDetailsVisible}
-              />
-            ) : (
-              <YouTube
-                data={youTubeDatas[detailIndex].videos}
-                channelName={youTubeDatas[detailIndex].channelName}
-                setIsDetailsVisible={setIsDetailsVisible}
-              />
-            )}
-          </motion.div>
-        )}
+              {
+                <MultipleSearch
+                  socialMedia={socialMedia}
+                  twitterDatas={twitterDatas}
+                  youTubeDatas={youTubeDatas}
+                  setIsDetailsVisible={setIsDetailsVisible}
+                  setDetailIndex={setDetailIndex}
+                />
+              }
+            </motion.div>
+          ) : (
+            <motion.div
+              className="container"
+              key={isDetailsVisible}
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0 }}
+            >
+              {socialMedia === "twitter" ? (
+                <Twitter
+                  data={twitterDatas[detailIndex].data}
+                  username={twitterDatas[detailIndex].meta.username}
+                  setIsDetailsVisible={setIsDetailsVisible}
+                />
+              ) : (
+                <YouTube
+                  data={youTubeDatas[detailIndex].videos}
+                  channelName={youTubeDatas[detailIndex].channelName}
+                  setIsDetailsVisible={setIsDetailsVisible}
+                />
+              )}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </motion.div>
     </AnimateSharedLayout>
   );
