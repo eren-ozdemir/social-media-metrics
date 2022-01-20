@@ -97,6 +97,7 @@ const SearchInput = ({
         return;
       }
       setQueryList([...queryList, usernameRef.current.value]);
+      usernameRef.current.value = "";
     }
   };
 
@@ -111,6 +112,10 @@ const SearchInput = ({
     setQueryList([]);
   };
 
+  const handeEnterKeyDown = (e) => {
+    if (e.key === "Enter") addQuery();
+  };
+
   return (
     <AnimatePresence exitBeforeEnter>
       <motion.div
@@ -121,7 +126,12 @@ const SearchInput = ({
         <Nav socialMedia={socialMedia} setSocialMedia={setSocialMedia} />
         <DateForm setStartDate={setStartDate} setEndDate={setEndDate} />
         <div className="search-input">
-          <input type="input" ref={usernameRef} placeholder="Kullanıcı Adı" />
+          <input
+            type="input"
+            ref={usernameRef}
+            onKeyDown={(e) => handeEnterKeyDown(e)}
+            placeholder="Kullanıcı Adı"
+          />
           <div className="btn" onClick={() => handleSearch()}>
             <div className="underline"></div>
             Ara
