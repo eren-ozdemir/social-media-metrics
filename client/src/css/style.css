@@ -456,6 +456,10 @@ body, html {
       justify-content: space-around;
 }
 
+.sums section div {
+  margin: 0.5em;
+}
+
 .no-data {
   margin: auto;
   font-weight: bold;
@@ -514,6 +518,7 @@ th, td {
 
 td {
   background-color: #121212;
+  padding: 0.5em;
 }
 
 .header-container {

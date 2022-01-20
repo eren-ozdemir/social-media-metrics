@@ -1,4 +1,4 @@
-import { AnimatePresence, AnimateSharedLayout, motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useState, useEffect } from "react";
 
 const MultipleSearch = ({
@@ -7,6 +7,7 @@ const MultipleSearch = ({
   youTubeDatas,
   setDetailIndex,
   setIsDetailsVisible,
+  isSearching,
 }) => {
   const [twitterBrands, setTwitterBrands] = useState([]);
   const [youTubeBrands, setYouTubeBrands] = useState([]);
@@ -15,30 +16,22 @@ const MultipleSearch = ({
 
   useEffect(() => {
     if (twitterDatas.length) {
-      console.log(twitterDatas);
       twitterDatas.map((_brand) => {
         tempBrands.push(twitterGetSums(_brand));
       });
       setTwitterBrands(tempBrands);
-    }
-
-    return () => {
       tempBrands = [];
-    };
+    }
   }, [twitterDatas]);
 
   useEffect(() => {
-    console.log(youTubeDatas);
     if (youTubeDatas.length) {
       youTubeDatas.map((_brand) => {
         tempBrands.push(youTubeGetSums(_brand));
       });
       setYouTubeBrands(tempBrands);
-    }
-
-    return () => {
       tempBrands = [];
-    };
+    }
   }, [youTubeDatas]);
 
   const twitterGetSums = (_brand) => {
@@ -116,7 +109,9 @@ const MultipleSearch = ({
         {socialMedia === "twitter" && (
           <div className="table">
             {twitterDatas.length === 0 ? (
-              <p className="no-data">Veri yok</p>
+              <p className="no-data">
+                {isSearching ? " Aranıyor" : "Veri yok"}
+              </p>
             ) : (
               <table>
                 <thead>
@@ -154,7 +149,9 @@ const MultipleSearch = ({
         {socialMedia === "youTube" && (
           <div className="table">
             {youTubeDatas.length === 0 ? (
-              <p className="no-data">Veri yok</p>
+              <p className="no-data">
+                {isSearching ? " Aranıyor" : "Veri yok"}
+              </p>
             ) : (
               <table>
                 <thead>

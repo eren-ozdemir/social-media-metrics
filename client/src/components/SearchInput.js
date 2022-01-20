@@ -1,60 +1,25 @@
 import { useRef, useState, useEffect } from "react";
-import DateForm from "./DateForm";
-import Options from "./Options";
-import Nav from "./Nav";
-import useLocalStorage from "../hooks/useLocalStorage";
-import axios from "axios";
-import { FaCross, FaWindowClose } from "react-icons/fa";
-import { AiFillCloseCircle, AiOutlineClose } from "react-icons/ai";
+import { FaWindowClose } from "react-icons/fa";
 import { AnimatePresence, motion } from "framer-motion";
+import axios from "axios";
+import Nav from "./Nav";
+import DateForm from "./DateForm";
 
 const SearchInput = ({
   socialMedia,
   setSocialMedia,
-  twitterDatas,
-  youTubeDatas,
-  setTwitterData,
   setTwitterDatas,
-  setYouTubeData,
   setYouTubeDatas,
-  handleResponse,
-  isSearching,
   setIsSearching,
-  isMultiple,
   queryList,
   setQueryList,
 }) => {
   const [startDate, setStartDate] = useState(new Date(2021, 6, 1));
   const [endDate, setEndDate] = useState(new Date(Date.now()));
   const usernameRef = useRef();
-  const [username, setUsername] = useState();
   const [optionList, setOptionList] = useState([]);
-  const [twitterOptionList, setTwitterOptionList] = useLocalStorage(
-    "twitter-option-list"
-  );
-  const [youTubeOptionList, setYouTubeOptionList] = useLocalStorage(
-    "youTube-option-list"
-  );
 
   let tempResults = [];
-
-  useEffect(() => {
-    twitterOptionList && setOptionList([...twitterOptionList]);
-  }, []);
-
-  const handleSocialMediaSelection = (_new) => {
-    setSocialMedia((prev) => {
-      if (prev === "twitter" && optionList)
-        setTwitterOptionList([...optionList]);
-      if (prev === "youTube" && optionList)
-        setYouTubeOptionList([...optionList]);
-      if (_new === "twitter" && twitterOptionList)
-        setOptionList([...twitterOptionList]);
-      if (_new === "youTube" && youTubeOptionList)
-        setOptionList([...youTubeOptionList]);
-      return _new;
-    });
-  };
 
   const handleSearch = async () => {
     if (startDate - endDate === 0) {
@@ -67,6 +32,7 @@ const SearchInput = ({
       return;
     }
 
+    setIsSearching(true);
     if (socialMedia === "twitter") {
       tempResults = [];
       for (let item of queryList) {
@@ -81,6 +47,7 @@ const SearchInput = ({
       }
       setYouTubeDatas([...tempResults]);
     }
+    setIsSearching(false);
   };
 
   const searchTwitter = async (_username) => {
@@ -141,6 +108,7 @@ const SearchInput = ({
   const resetDatas = () => {
     setYouTubeDatas([]);
     setTwitterDatas([]);
+    setQueryList([]);
   };
 
   return (
@@ -150,10 +118,7 @@ const SearchInput = ({
         layout
         transition={{ type: "tween" }}
       >
-        <Nav
-          socialMedia={socialMedia}
-          handleSocialMediaSelection={handleSocialMediaSelection}
-        />
+        <Nav socialMedia={socialMedia} setSocialMedia={setSocialMedia} />
         <DateForm setStartDate={setStartDate} setEndDate={setEndDate} />
         <div className="search-input">
           <input type="input" ref={usernameRef} placeholder="Kullanıcı Adı" />

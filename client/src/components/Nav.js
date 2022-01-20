@@ -2,7 +2,7 @@ import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaTwitter, FaYoutube } from "react-icons/fa";
 
-const Nav = ({ socialMedia, handleSocialMediaSelection }) => {
+const Nav = ({ socialMedia, setSocialMedia }) => {
   const navigatorVariants = {
     selected: { scale: 1.5 },
     notSelected: { scale: 1 },
@@ -18,7 +18,7 @@ const Nav = ({ socialMedia, handleSocialMediaSelection }) => {
             ? "nav-item twitter-btn selected"
             : "nav-item twitter-btn "
         }
-        onClick={() => handleSocialMediaSelection("twitter")}
+        onClick={() => setSocialMedia("twitter")}
       >
         <FaTwitter
           className={
@@ -36,7 +36,7 @@ const Nav = ({ socialMedia, handleSocialMediaSelection }) => {
             ? "nav-item youTube-btn selected"
             : "nav-item youTube-btn "
         }
-        onClick={() => handleSocialMediaSelection("youTube")}
+        onClick={() => setSocialMedia("youTube")}
       >
         <FaYoutube
           className={

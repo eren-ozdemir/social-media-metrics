@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { AiOutlineRetweet, AiOutlineHeart } from "react-icons/ai";
 import { FaArrowLeft, FaRegComment } from "react-icons/fa";
 import { AnimatePresence, motion } from "framer-motion";
@@ -80,6 +80,7 @@ const Twitter = ({ data, setIsDetailsVisible, username }) => {
                 <p className="metric">{getSum(publicMetricSums)}</p>
               </div>
             </section>
+
             <section>
               <div>
                 <AiOutlineHeart />
@@ -107,8 +108,12 @@ const Twitter = ({ data, setIsDetailsVisible, username }) => {
             >
               <div className="share">
                 <h3 className="title">En çok etkileşim alan paylaşım</h3>
-
-                <p className="content">{data[popular].text}</p>
+                <a
+                  href={`https://twitter.com/${username}/status/${data[popular].id}`}
+                  target="_blank"
+                >
+                  <p className="content">{data[popular].text}</p>
+                </a>
 
                 <div className="meta-data">
                   <div className="metrics">
@@ -147,12 +152,12 @@ const Twitter = ({ data, setIsDetailsVisible, username }) => {
                   <p>{index + 1}</p>
                 </div>
                 <div className="share">
-                  {/* <a
+                  <a
                     href={`https://twitter.com/${username}/status/${tweet.id}`}
                     target="_blank"
-                  > */}
-                  <p className="content">{tweet.text}</p>
-                  {/* </a> */}
+                  >
+                    <p className="content">{tweet.text}</p>
+                  </a>
                   <div className="meta-data">
                     <div className="metrics">
                       <p className="metric">

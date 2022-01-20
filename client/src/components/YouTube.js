@@ -1,8 +1,7 @@
-import React from "react";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { AiOutlineEye, AiOutlineHeart } from "react-icons/ai";
 import { FaArrowLeft, FaRegComment } from "react-icons/fa";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { IconContext } from "react-icons";
 
 const YouTube = ({ data, setIsDetailsVisible, channelName }) => {

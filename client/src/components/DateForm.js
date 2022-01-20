@@ -1,9 +1,7 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import DateTimeRangePicker from "@wojtekmaj/react-datetimerange-picker";
 
 const DateForm = ({ setStartDate, setEndDate }) => {
-  const startDateRef = useRef();
-  const endDateRef = useRef();
   const [value, setDateRange] = useState([new Date(), new Date()]);
 
   useEffect(() => {

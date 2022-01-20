@@ -1,26 +1,18 @@
-import DateForm from "./components/DateForm";
-import Detailed from "./components/SingleSearch.js";
-import Nav from "./components/Nav.js";
-import SingleSearch from "./components/SingleSearch.js";
-import SearchInput from "./components/SearchInput";
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence, AnimateSharedLayout } from "framer-motion";
+import SearchInput from "./components/SearchInput";
 import MultipleSearch from "./components/MultipleSearch";
 import Twitter from "./components/Twitter";
 import YouTube from "./components/YouTube";
 
 function App() {
-  const [socialMedia, setSocialMedia] = useState("youTube");
-  const [startDate, setStartDate] = useState(new Date(2021, 6, 1));
-  const [endDate, setEndDate] = useState(new Date(Date.now()));
-  const [twitterData, setTwitterData] = useState([]);
+  const [socialMedia, setSocialMedia] = useState("twitter");
   const [twitterDatas, setTwitterDatas] = useState([]);
-  const [youTubeData, setYouTubeData] = useState([]);
   const [youTubeDatas, setYouTubeDatas] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
   const [isDetailsVisible, setIsDetailsVisible] = useState(false);
   const [detailIndex, setDetailIndex] = useState();
-  const [queryList, setQueryList] = useState(["Yatırım Finansman"]);
+  const [queryList, setQueryList] = useState([]);
 
   return (
     <AnimateSharedLayout>
@@ -48,6 +40,7 @@ function App() {
               {
                 <MultipleSearch
                   socialMedia={socialMedia}
+                  isSearching={isSearching}
                   twitterDatas={twitterDatas}
                   youTubeDatas={youTubeDatas}
                   setIsDetailsVisible={setIsDetailsVisible}
