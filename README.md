@@ -1,4 +1,6 @@
-You can get public metrics about Twitter and YouTube sharings.
+# Introduction
+
+You can get public metrics of Twitter and YouTube sharings.
 
 # Demo
 
