@@ -38,7 +38,7 @@ const MultipleSearch = ({
     let total = 0;
     //Create array template
     const tempSums = new Object();
-    if (_brand.data.length > 0) {
+    if (_brand.data?.length > 0) {
       console.log(_brand.data);
       for (const metric in _brand.data?.[0].public_metrics) {
         tempSums[metric] = 0;
@@ -66,7 +66,7 @@ const MultipleSearch = ({
       return brand;
     }
     const nodata = {
-      username: _brand.meta["username"],
+      username: _brand.meta?.["username"],
       sums: {
         like_count: "-",
         quote_count: "-",
@@ -82,8 +82,9 @@ const MultipleSearch = ({
   const youTubeGetSums = (_brand) => {
     let total = 0;
     //Create array template
+    console.log(_brand.videos);
     const tempSums = new Object();
-    if (_brand > 0) {
+    if (_brand.videos != undefined) {
       for (const metric in _brand.videos?.[0]?.statistics) {
         tempSums[metric] = 0;
       }
