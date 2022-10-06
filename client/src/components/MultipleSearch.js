@@ -38,60 +38,88 @@ const MultipleSearch = ({
     let total = 0;
     //Create array template
     const tempSums = new Object();
-    for (const metric in _brand.data?.[0].public_metrics) {
-      tempSums[metric] = 0;
-    }
-
-    //Calculate
-    _brand.data?.map((tweet) => {
-      for (const metric in tweet?.public_metrics) {
-        tempSums[metric] += tweet?.public_metrics[metric];
+    if (_brand.data.length > 0) {
+      console.log(_brand.data);
+      for (const metric in _brand.data?.[0].public_metrics) {
+        tempSums[metric] = 0;
       }
-    });
 
-    for (const metric in tempSums) {
-      if (metric !== "quote_count") total += tempSums[metric];
+      //Calculate
+      _brand.data?.map((tweet) => {
+        for (const metric in tweet?.public_metrics) {
+          tempSums[metric] += tweet?.public_metrics[metric];
+        }
+      });
+
+      for (const metric in tempSums) {
+        if (metric !== "quote_count") total += tempSums[metric];
+      }
+
+      tempSums.total = total;
+      tempSums["share_count"] = _brand.data?.length;
+
+      const brand = {
+        username: _brand.meta?.username,
+        sums: tempSums,
+      };
+
+      return brand;
     }
-
-    tempSums.total = total;
-    tempSums["share_count"] = _brand.data?.length;
-
-    const brand = {
-      username: _brand.meta?.username,
-      sums: tempSums,
+    const nodata = {
+      username: _brand.meta["username"],
+      sums: {
+        like_count: "-",
+        quote_count: "-",
+        reply_count: "-",
+        retweet_count: "-",
+        share_count: "-",
+        total: "-",
+      },
     };
-
-    return brand;
+    return nodata;
   };
 
   const youTubeGetSums = (_brand) => {
     let total = 0;
     //Create array template
     const tempSums = new Object();
-    for (const metric in _brand.videos?.[0]?.statistics) {
-      tempSums[metric] = 0;
-    }
-
-    //Calculate
-    _brand.videos.map((video) => {
-      for (const metric in video.statistics) {
-        tempSums[metric] += +video.statistics[metric];
+    if (_brand > 0) {
+      for (const metric in _brand.videos?.[0]?.statistics) {
+        tempSums[metric] = 0;
       }
-    });
+      console.log(_brand.length);
+      //Calculate
+      _brand.videos.map((video) => {
+        for (const metric in video.statistics) {
+          tempSums[metric] += +video.statistics[metric];
+        }
+      });
 
-    for (const metric in tempSums) {
-      if (metric !== "quote_count") total += +tempSums[metric];
+      for (const metric in tempSums) {
+        if (metric !== "quote_count") total += +tempSums[metric];
+      }
+
+      tempSums.total = total;
+      tempSums.shareCount = _brand.videos.length;
+
+      const brand = {
+        username: _brand.channelName,
+        sums: tempSums,
+      };
+      return brand;
     }
-
-    tempSums.total = total;
-    tempSums.shareCount = _brand.videos.length;
-
-    const brand = {
+    const nodata = {
       username: _brand.channelName,
-      sums: tempSums,
+      sums: {
+        commentCount: "-",
+        favoriteCount: "-",
+        likeCount: "-",
+        shareCount: "-",
+        total: "-",
+        viewCount: "-",
+      },
     };
-
-    return brand;
+    return nodata;
   };
 
   const showDetails = (_index) => {

@@ -24,7 +24,7 @@ const Twitter = ({ data, setIsDetailsVisible, username }) => {
 
       data.map((tweet) => {
         for (const metric in tweet?.public_metrics) {
-          tempPublicMetricSums[metric] += tweet?.public_metrics[metric];
+          tempPublicMetricSums[metric] += tweet.public_metrics[metric];
         }
       });
       setPublicMetricSums(tempPublicMetricSums);
@@ -37,10 +37,10 @@ const Twitter = ({ data, setIsDetailsVisible, username }) => {
     let popularSum = 0;
     _data.map((share, index, arr) => {
       let sum = 0;
-      for (const metric in share?.public_metrics) {
-        if (metric !== "quote_count") sum += share?.public_metrics[metric];
+      for (const metric in share.public_metrics) {
+        if (metric !== "quote_count") sum += share.public_metrics[metric];
       }
-      share?.public_metrics.sum = sum;
+      share.public_metrics.sum = sum;
       if (sum > popularSum) {
         popularSum = sum;
         popularIndex = index;
