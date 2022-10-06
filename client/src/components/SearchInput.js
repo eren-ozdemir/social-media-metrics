@@ -132,14 +132,15 @@ const SearchInput = ({
             onKeyDown={(e) => handeEnterKeyDown(e)}
             placeholder="Kullanıcı Adı"
           />
+                    <div className="btn" onClick={addQuery}>
+            <div className="underline"></div>
+            Sıraya Ekle
+          </div>
           <div className="btn" onClick={() => handleSearch()}>
             <div className="underline"></div>
             Ara
           </div>
-          <div className="btn" onClick={addQuery}>
-            <div className="underline"></div>
-            Sıraya Ekle
-          </div>
+
           <div className="btn" onClick={resetDatas}>
             <div className="underline"></div>
             Temizle
