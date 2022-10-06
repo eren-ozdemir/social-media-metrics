@@ -44,8 +44,8 @@ const MultipleSearch = ({
 
     //Calculate
     _brand.data?.map((tweet) => {
-      for (const metric in tweet.public_metrics) {
-        tempSums[metric] += tweet.public_metrics[metric];
+      for (const metric in tweet?.public_metrics) {
+        tempSums[metric] += tweet?.public_metrics[metric];
       }
     });
 

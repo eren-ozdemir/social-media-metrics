@@ -23,8 +23,8 @@ const Twitter = ({ data, setIsDetailsVisible, username }) => {
       }
 
       data.map((tweet) => {
-        for (const metric in tweet.public_metrics) {
-          tempPublicMetricSums[metric] += tweet.public_metrics[metric];
+        for (const metric in tweet?.public_metrics) {
+          tempPublicMetricSums[metric] += tweet?.public_metrics[metric];
         }
       });
       setPublicMetricSums(tempPublicMetricSums);
@@ -38,9 +38,9 @@ const Twitter = ({ data, setIsDetailsVisible, username }) => {
     _data.map((share, index, arr) => {
       let sum = 0;
       for (const metric in share?.public_metrics) {
-        if (metric !== "quote_count") sum += share.public_metrics[metric];
+        if (metric !== "quote_count") sum += share?.public_metrics[metric];
       }
-      share.public_metrics.sum = sum;
+      share?.public_metrics.sum = sum;
       if (sum > popularSum) {
         popularSum = sum;
         popularIndex = index;
@@ -119,15 +119,15 @@ const Twitter = ({ data, setIsDetailsVisible, username }) => {
                   <div className="metrics">
                     <p className="metric">
                       <AiOutlineHeart />{" "}
-                      {data[popular].public_metrics["like_count"]}
+                      {data[popular]?.public_metrics["like_count"]}
                     </p>
                     <p className="metric">
                       <FaRegComment />{" "}
-                      {data[popular].public_metrics["reply_count"]}
+                      {data[popular]?.public_metrics["reply_count"]}
                     </p>
                     <p className="metric">
                       <AiOutlineRetweet />{" "}
-                      {data[popular].public_metrics["retweet_count"]}
+                      {data[popular]?.public_metrics["retweet_count"]}
                     </p>
                   </div>
                   <p className="share-date">
@@ -161,14 +161,14 @@ const Twitter = ({ data, setIsDetailsVisible, username }) => {
                   <div className="meta-data">
                     <div className="metrics">
                       <p className="metric">
-                        <AiOutlineHeart /> {tweet.public_metrics["like_count"]}
+                        <AiOutlineHeart /> {tweet?.public_metrics["like_count"]}
                       </p>
                       <p className="metric">
-                        <FaRegComment /> {tweet.public_metrics["reply_count"]}
+                        <FaRegComment /> {tweet?.public_metrics["reply_count"]}
                       </p>
                       <p className="metric">
                         <AiOutlineRetweet />
-                        {tweet.public_metrics["retweet_count"]}
+                        {tweet?.public_metrics["retweet_count"]}
                       </p>
                     </div>
                     <p className="share-date">

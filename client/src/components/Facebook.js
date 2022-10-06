@@ -85,8 +85,8 @@ const Facebook = ({
       }
 
       data.map((share) => {
-        for (const metric in share.public_metrics) {
-          tempPublicMetricSums[metric] += share.public_metrics[metric];
+        for (const metric in share?.public_metrics) {
+          tempPublicMetricSums[metric] += share?.public_metrics[metric];
         }
       });
       setPublicMetricSums(tempPublicMetricSums);
