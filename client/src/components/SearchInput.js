@@ -26,7 +26,6 @@ const SearchInput = ({
       alert("Bir tarih aralığı seçin.");
       return;
     }
-
     if (!queryList.length) {
       alert("En az bir kullanıcı adı ekleyin.");
       return;
@@ -112,7 +111,7 @@ const SearchInput = ({
     setQueryList([]);
   };
 
-  const handeEnterKeyDown = (e) => {
+  const handleEnterKeyDown = (e) => {
     if (e.key === "Enter") addQuery();
   };
 
@@ -129,7 +128,7 @@ const SearchInput = ({
           <input
             type="input"
             ref={usernameRef}
-            onKeyDown={(e) => handeEnterKeyDown(e)}
+            onKeyDown={(e) => handleEnterKeyDown(e)}
             placeholder="Kullanıcı Adı"
           />
 
@@ -137,7 +136,7 @@ const SearchInput = ({
             <div className="underline"></div>
             Sıraya Ekle
           </div>
-          <div className="btn" onClick={() => handleSearch()}>
+          <div className="btn" onClick={handleSearch}>
             <div className="underline"></div>
             Ara
           </div>
@@ -150,12 +149,13 @@ const SearchInput = ({
           <div className="query-list-wrapper">
             {queryList?.map((_query) => {
               return (
-                <div className="query-item" key={_query}>
+                <div
+                  className="query-item pointer"
+                  key={_query}
+                  onClick={() => removeQuery(_query)}
+                >
                   <p>{_query}</p>
-                  <FaWindowClose
-                    className="pointer"
-                    onClick={() => removeQuery(_query)}
-                  />
+                  <FaWindowClose className="pointer" />
                 </div>
               );
             })}
