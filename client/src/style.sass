@@ -1,5 +1,4 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap');
 
     
 $color-one: #393e46
@@ -21,7 +20,7 @@ body, html
     height: 100vh
     margin: 0
     padding: 0
-    font-family: 'Ubuntu', sans-serif
+    font-family: Roboto, Arial, Helvetica, sans-serif
     overflow-x: hidden
 
 /* width */
@@ -280,15 +279,18 @@ body, html
     display: flex
     justify-content: space-between
     border-top: 2px solid white
+    height: 3vh
     
 .metrics
     display: flex
     margin: 0
-    padding-top: 5px 
     width: 90%
-    height: 3vh
     justify-content: space-around
     align-items: center
+
+    .share-date
+        height: 3vh
+        align-items: center
 
     div
         display: flex
@@ -417,8 +419,6 @@ td
 
 
 @media screen and (max-width:600px) 
-    .container
-
 
     .search-box-container
         height: 30vh
@@ -446,6 +446,10 @@ td
     .nav-item svg
         scale: 1.5
 
+    .table-container
+        font-size: 0.8rem
+        width: 100%
+
     .table
         margin: 1vh
         box-shadow: none
@@ -468,11 +472,17 @@ td
 
     .share-wrapper
         padding: 1rem
-        width: 90%
+        width: 95%
 
     .share-container
         border-radius: 0
 
     .query-list-container
         width: 66%
-        
+    
+    .meta-data
+        align-items: center
+        justify-content: center
+
+
+

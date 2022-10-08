@@ -131,9 +131,7 @@ const Twitter = ({ data, setIsDetailsVisible, username }) => {
                     </p>
                   </div>
                   <p className="share-date">
-                    {new Date(data[popular].created_at).toLocaleTimeString() +
-                      " - " +
-                      new Date(data[popular].created_at).toLocaleDateString()}
+                    {new Date(data[popular].created_at).toLocaleDateString()}
                   </p>
                 </div>
               </div>
@@ -172,9 +170,7 @@ const Twitter = ({ data, setIsDetailsVisible, username }) => {
                       </p>
                     </div>
                     <p className="share-date">
-                      {new Date(tweet.created_at).toLocaleTimeString() +
-                        " - " +
-                        new Date(tweet.created_at).toLocaleDateString()}
+                      {new Date(tweet.created_at).toLocaleDateString()}
                     </p>
                   </div>
                 </div>

@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Ubuntu&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap");
 * {
   margin: 0;
 }
@@ -8,7 +8,7 @@ body, html {
   height: 100vh;
   margin: 0;
   padding: 0;
-  font-family: 'Ubuntu', sans-serif;
+  font-family: Roboto, Arial, Helvetica, sans-serif;
   overflow-x: hidden;
 }
 
@@ -374,6 +374,7 @@ body, html {
       -ms-flex-pack: justify;
           justify-content: space-between;
   border-top: 2px solid white;
+  height: 3vh;
 }
 
 .metrics {
@@ -381,11 +382,16 @@ body, html {
   display: -ms-flexbox;
   display: flex;
   margin: 0;
-  padding-top: 5px;
   width: 90%;
-  height: 3vh;
   -ms-flex-pack: distribute;
       justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.metrics .share-date {
+  height: 3vh;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -599,6 +605,10 @@ td {
   .nav-item svg {
     scale: 1.5;
   }
+  .table-container {
+    font-size: 0.8rem;
+    width: 100%;
+  }
   .table {
     margin: 1vh;
     -webkit-box-shadow: none;
@@ -621,13 +631,21 @@ td {
   }
   .share-wrapper {
     padding: 1rem;
-    width: 90%;
+    width: 95%;
   }
   .share-container {
     border-radius: 0;
   }
   .query-list-container {
     width: 66%;
+  }
+  .meta-data {
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
   }
 }
 /*# sourceMappingURL=style.css.map */
