@@ -561,4 +561,74 @@ td {
   display: flex;
   height: 50px;
 }
+
+@media screen and (max-width: 600px) {
+  .container {
+    display: block;
+    padding: 0;
+  }
+  .search-box-container {
+    height: 30vh;
+    border-radius: 0;
+    padding-top: 3rem;
+  }
+  .date-input {
+    margin-top: 1rem;
+  }
+  .search-input {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    width: 80%;
+    margin: 1rem;
+  }
+  .search-input input {
+    height: 2rem;
+    -ms-flex-preferred-size: 96%;
+        flex-basis: 96%;
+  }
+  .search-input .btn {
+    margin: 0.5rem;
+    height: 2rem;
+    -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+            flex-grow: 1;
+  }
+  .nav-item svg {
+    scale: 1.5;
+  }
+  .table {
+    margin: 1vh;
+    -webkit-box-shadow: none;
+            box-shadow: none;
+    height: 58vh;
+    border-radius: 0;
+  }
+  .social-media-item {
+    height: 100vh;
+    width: 100vw;
+    min-width: 600px;
+  }
+  .header {
+    padding: 2rem;
+  }
+  .header-container {
+    border-radius: 0;
+  }
+  .header svg {
+    scale: 1.5;
+  }
+  .share-wrapper {
+    padding: 1rem;
+    width: 90%;
+  }
+  .share-container {
+    border-radius: 0;
+  }
+}
 /*# sourceMappingURL=style.css.map */
